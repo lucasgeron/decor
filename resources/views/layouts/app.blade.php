@@ -21,6 +21,8 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
+        @auth
+
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
@@ -32,6 +34,8 @@
                     </div>
                 </header>
             @endif
+
+        @endauth
 
             <!-- Page Content -->
             <main>
