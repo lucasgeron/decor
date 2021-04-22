@@ -1,4 +1,4 @@
-<div class="bg-white h-64 shadow-md py-4 px-2 md:rounded-lg ">
+<div class="bg-white h-64 shadow-md py-4 px-2 rounded-lg ">
     <div class="p-2">
 
         <div class="flex justify-between">
