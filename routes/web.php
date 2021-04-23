@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\{
+    SearchUsers,
     SearchCategories
 };
 
@@ -16,7 +17,6 @@ use App\Http\Livewire\{
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 
 Route::get('/', function () {

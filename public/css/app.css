@@ -748,6 +748,11 @@ select {
   outline: 1px auto -webkit-focus-ring-color;
 }
 
+* {
+  scrollbar-color: initial;
+  scrollbar-width: initial;
+}
+
 .container {
   width: 100%;
 }
@@ -33371,6 +33376,1086 @@ select {
 
 .backdrop-sepia {
   --tw-backdrop-sepia: sepia(100%);
+}
+
+.scrollbar {
+  --scrollbar-track: initial;
+  --scrollbar-thumb: initial;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  overflow: overlay;
+}
+
+.scrollbar.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.scrollbar.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track);
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+}
+
+.scrollbar {
+  scrollbar-width: auto;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.scrollbar-thin {
+  --scrollbar-track: initial;
+  --scrollbar-thumb: initial;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  overflow: overlay;
+}
+
+.scrollbar-thin.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.scrollbar-thin.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-track-transparent {
+  --scrollbar-track: transparent;
+}
+
+.scrollbar-thumb-transparent {
+  --scrollbar-thumb: transparent;
+}
+
+.hover\:scrollbar-thumb-transparent::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: transparent;
+}
+
+.scrollbar-track-current {
+  --scrollbar-track: currentColor;
+}
+
+.scrollbar-thumb-current {
+  --scrollbar-thumb: currentColor;
+}
+
+.hover\:scrollbar-thumb-current::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: currentColor;
+}
+
+.scrollbar-track-black {
+  --scrollbar-track: #000;
+}
+
+.scrollbar-thumb-black {
+  --scrollbar-thumb: #000;
+}
+
+.hover\:scrollbar-thumb-black::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #000;
+}
+
+.scrollbar-track-white {
+  --scrollbar-track: #fff;
+}
+
+.scrollbar-thumb-white {
+  --scrollbar-thumb: #fff;
+}
+
+.hover\:scrollbar-thumb-white::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fff;
+}
+
+.scrollbar-track-gray-50 {
+  --scrollbar-track: #f9fafb;
+}
+
+.scrollbar-thumb-gray-50 {
+  --scrollbar-thumb: #f9fafb;
+}
+
+.hover\:scrollbar-thumb-gray-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f9fafb;
+}
+
+.scrollbar-track-gray-100 {
+  --scrollbar-track: #f3f4f6;
+}
+
+.scrollbar-thumb-gray-100 {
+  --scrollbar-thumb: #f3f4f6;
+}
+
+.hover\:scrollbar-thumb-gray-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f3f4f6;
+}
+
+.scrollbar-track-gray-200 {
+  --scrollbar-track: #e5e7eb;
+}
+
+.scrollbar-thumb-gray-200 {
+  --scrollbar-thumb: #e5e7eb;
+}
+
+.hover\:scrollbar-thumb-gray-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #e5e7eb;
+}
+
+.scrollbar-track-gray-300 {
+  --scrollbar-track: #d1d5db;
+}
+
+.scrollbar-thumb-gray-300 {
+  --scrollbar-thumb: #d1d5db;
+}
+
+.hover\:scrollbar-thumb-gray-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #d1d5db;
+}
+
+.scrollbar-track-gray-400 {
+  --scrollbar-track: #9ca3af;
+}
+
+.scrollbar-thumb-gray-400 {
+  --scrollbar-thumb: #9ca3af;
+}
+
+.hover\:scrollbar-thumb-gray-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #9ca3af;
+}
+
+.scrollbar-track-gray-500 {
+  --scrollbar-track: #6b7280;
+}
+
+.scrollbar-thumb-gray-500 {
+  --scrollbar-thumb: #6b7280;
+}
+
+.hover\:scrollbar-thumb-gray-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #6b7280;
+}
+
+.scrollbar-track-gray-600 {
+  --scrollbar-track: #4b5563;
+}
+
+.scrollbar-thumb-gray-600 {
+  --scrollbar-thumb: #4b5563;
+}
+
+.hover\:scrollbar-thumb-gray-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #4b5563;
+}
+
+.scrollbar-track-gray-700 {
+  --scrollbar-track: #374151;
+}
+
+.scrollbar-thumb-gray-700 {
+  --scrollbar-thumb: #374151;
+}
+
+.hover\:scrollbar-thumb-gray-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #374151;
+}
+
+.scrollbar-track-gray-800 {
+  --scrollbar-track: #1f2937;
+}
+
+.scrollbar-thumb-gray-800 {
+  --scrollbar-thumb: #1f2937;
+}
+
+.hover\:scrollbar-thumb-gray-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #1f2937;
+}
+
+.scrollbar-track-gray-900 {
+  --scrollbar-track: #111827;
+}
+
+.scrollbar-thumb-gray-900 {
+  --scrollbar-thumb: #111827;
+}
+
+.hover\:scrollbar-thumb-gray-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #111827;
+}
+
+.scrollbar-track-red-50 {
+  --scrollbar-track: #fef2f2;
+}
+
+.scrollbar-thumb-red-50 {
+  --scrollbar-thumb: #fef2f2;
+}
+
+.hover\:scrollbar-thumb-red-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fef2f2;
+}
+
+.scrollbar-track-red-100 {
+  --scrollbar-track: #fee2e2;
+}
+
+.scrollbar-thumb-red-100 {
+  --scrollbar-thumb: #fee2e2;
+}
+
+.hover\:scrollbar-thumb-red-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fee2e2;
+}
+
+.scrollbar-track-red-200 {
+  --scrollbar-track: #fecaca;
+}
+
+.scrollbar-thumb-red-200 {
+  --scrollbar-thumb: #fecaca;
+}
+
+.hover\:scrollbar-thumb-red-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fecaca;
+}
+
+.scrollbar-track-red-300 {
+  --scrollbar-track: #fca5a5;
+}
+
+.scrollbar-thumb-red-300 {
+  --scrollbar-thumb: #fca5a5;
+}
+
+.hover\:scrollbar-thumb-red-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fca5a5;
+}
+
+.scrollbar-track-red-400 {
+  --scrollbar-track: #f87171;
+}
+
+.scrollbar-thumb-red-400 {
+  --scrollbar-thumb: #f87171;
+}
+
+.hover\:scrollbar-thumb-red-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f87171;
+}
+
+.scrollbar-track-red-500 {
+  --scrollbar-track: #ef4444;
+}
+
+.scrollbar-thumb-red-500 {
+  --scrollbar-thumb: #ef4444;
+}
+
+.hover\:scrollbar-thumb-red-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #ef4444;
+}
+
+.scrollbar-track-red-600 {
+  --scrollbar-track: #dc2626;
+}
+
+.scrollbar-thumb-red-600 {
+  --scrollbar-thumb: #dc2626;
+}
+
+.hover\:scrollbar-thumb-red-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #dc2626;
+}
+
+.scrollbar-track-red-700 {
+  --scrollbar-track: #b91c1c;
+}
+
+.scrollbar-thumb-red-700 {
+  --scrollbar-thumb: #b91c1c;
+}
+
+.hover\:scrollbar-thumb-red-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #b91c1c;
+}
+
+.scrollbar-track-red-800 {
+  --scrollbar-track: #991b1b;
+}
+
+.scrollbar-thumb-red-800 {
+  --scrollbar-thumb: #991b1b;
+}
+
+.hover\:scrollbar-thumb-red-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #991b1b;
+}
+
+.scrollbar-track-red-900 {
+  --scrollbar-track: #7f1d1d;
+}
+
+.scrollbar-thumb-red-900 {
+  --scrollbar-thumb: #7f1d1d;
+}
+
+.hover\:scrollbar-thumb-red-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #7f1d1d;
+}
+
+.scrollbar-track-yellow-50 {
+  --scrollbar-track: #fffbeb;
+}
+
+.scrollbar-thumb-yellow-50 {
+  --scrollbar-thumb: #fffbeb;
+}
+
+.hover\:scrollbar-thumb-yellow-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fffbeb;
+}
+
+.scrollbar-track-yellow-100 {
+  --scrollbar-track: #fef3c7;
+}
+
+.scrollbar-thumb-yellow-100 {
+  --scrollbar-thumb: #fef3c7;
+}
+
+.hover\:scrollbar-thumb-yellow-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fef3c7;
+}
+
+.scrollbar-track-yellow-200 {
+  --scrollbar-track: #fde68a;
+}
+
+.scrollbar-thumb-yellow-200 {
+  --scrollbar-thumb: #fde68a;
+}
+
+.hover\:scrollbar-thumb-yellow-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fde68a;
+}
+
+.scrollbar-track-yellow-300 {
+  --scrollbar-track: #fcd34d;
+}
+
+.scrollbar-thumb-yellow-300 {
+  --scrollbar-thumb: #fcd34d;
+}
+
+.hover\:scrollbar-thumb-yellow-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fcd34d;
+}
+
+.scrollbar-track-yellow-400 {
+  --scrollbar-track: #fbbf24;
+}
+
+.scrollbar-thumb-yellow-400 {
+  --scrollbar-thumb: #fbbf24;
+}
+
+.hover\:scrollbar-thumb-yellow-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fbbf24;
+}
+
+.scrollbar-track-yellow-500 {
+  --scrollbar-track: #f59e0b;
+}
+
+.scrollbar-thumb-yellow-500 {
+  --scrollbar-thumb: #f59e0b;
+}
+
+.hover\:scrollbar-thumb-yellow-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f59e0b;
+}
+
+.scrollbar-track-yellow-600 {
+  --scrollbar-track: #d97706;
+}
+
+.scrollbar-thumb-yellow-600 {
+  --scrollbar-thumb: #d97706;
+}
+
+.hover\:scrollbar-thumb-yellow-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #d97706;
+}
+
+.scrollbar-track-yellow-700 {
+  --scrollbar-track: #b45309;
+}
+
+.scrollbar-thumb-yellow-700 {
+  --scrollbar-thumb: #b45309;
+}
+
+.hover\:scrollbar-thumb-yellow-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #b45309;
+}
+
+.scrollbar-track-yellow-800 {
+  --scrollbar-track: #92400e;
+}
+
+.scrollbar-thumb-yellow-800 {
+  --scrollbar-thumb: #92400e;
+}
+
+.hover\:scrollbar-thumb-yellow-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #92400e;
+}
+
+.scrollbar-track-yellow-900 {
+  --scrollbar-track: #78350f;
+}
+
+.scrollbar-thumb-yellow-900 {
+  --scrollbar-thumb: #78350f;
+}
+
+.hover\:scrollbar-thumb-yellow-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #78350f;
+}
+
+.scrollbar-track-green-50 {
+  --scrollbar-track: #ecfdf5;
+}
+
+.scrollbar-thumb-green-50 {
+  --scrollbar-thumb: #ecfdf5;
+}
+
+.hover\:scrollbar-thumb-green-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #ecfdf5;
+}
+
+.scrollbar-track-green-100 {
+  --scrollbar-track: #d1fae5;
+}
+
+.scrollbar-thumb-green-100 {
+  --scrollbar-thumb: #d1fae5;
+}
+
+.hover\:scrollbar-thumb-green-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #d1fae5;
+}
+
+.scrollbar-track-green-200 {
+  --scrollbar-track: #a7f3d0;
+}
+
+.scrollbar-thumb-green-200 {
+  --scrollbar-thumb: #a7f3d0;
+}
+
+.hover\:scrollbar-thumb-green-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #a7f3d0;
+}
+
+.scrollbar-track-green-300 {
+  --scrollbar-track: #6ee7b7;
+}
+
+.scrollbar-thumb-green-300 {
+  --scrollbar-thumb: #6ee7b7;
+}
+
+.hover\:scrollbar-thumb-green-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #6ee7b7;
+}
+
+.scrollbar-track-green-400 {
+  --scrollbar-track: #34d399;
+}
+
+.scrollbar-thumb-green-400 {
+  --scrollbar-thumb: #34d399;
+}
+
+.hover\:scrollbar-thumb-green-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #34d399;
+}
+
+.scrollbar-track-green-500 {
+  --scrollbar-track: #10b981;
+}
+
+.scrollbar-thumb-green-500 {
+  --scrollbar-thumb: #10b981;
+}
+
+.hover\:scrollbar-thumb-green-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #10b981;
+}
+
+.scrollbar-track-green-600 {
+  --scrollbar-track: #059669;
+}
+
+.scrollbar-thumb-green-600 {
+  --scrollbar-thumb: #059669;
+}
+
+.hover\:scrollbar-thumb-green-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #059669;
+}
+
+.scrollbar-track-green-700 {
+  --scrollbar-track: #047857;
+}
+
+.scrollbar-thumb-green-700 {
+  --scrollbar-thumb: #047857;
+}
+
+.hover\:scrollbar-thumb-green-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #047857;
+}
+
+.scrollbar-track-green-800 {
+  --scrollbar-track: #065f46;
+}
+
+.scrollbar-thumb-green-800 {
+  --scrollbar-thumb: #065f46;
+}
+
+.hover\:scrollbar-thumb-green-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #065f46;
+}
+
+.scrollbar-track-green-900 {
+  --scrollbar-track: #064e3b;
+}
+
+.scrollbar-thumb-green-900 {
+  --scrollbar-thumb: #064e3b;
+}
+
+.hover\:scrollbar-thumb-green-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #064e3b;
+}
+
+.scrollbar-track-blue-50 {
+  --scrollbar-track: #eff6ff;
+}
+
+.scrollbar-thumb-blue-50 {
+  --scrollbar-thumb: #eff6ff;
+}
+
+.hover\:scrollbar-thumb-blue-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #eff6ff;
+}
+
+.scrollbar-track-blue-100 {
+  --scrollbar-track: #dbeafe;
+}
+
+.scrollbar-thumb-blue-100 {
+  --scrollbar-thumb: #dbeafe;
+}
+
+.hover\:scrollbar-thumb-blue-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #dbeafe;
+}
+
+.scrollbar-track-blue-200 {
+  --scrollbar-track: #bfdbfe;
+}
+
+.scrollbar-thumb-blue-200 {
+  --scrollbar-thumb: #bfdbfe;
+}
+
+.hover\:scrollbar-thumb-blue-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #bfdbfe;
+}
+
+.scrollbar-track-blue-300 {
+  --scrollbar-track: #93c5fd;
+}
+
+.scrollbar-thumb-blue-300 {
+  --scrollbar-thumb: #93c5fd;
+}
+
+.hover\:scrollbar-thumb-blue-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #93c5fd;
+}
+
+.scrollbar-track-blue-400 {
+  --scrollbar-track: #60a5fa;
+}
+
+.scrollbar-thumb-blue-400 {
+  --scrollbar-thumb: #60a5fa;
+}
+
+.hover\:scrollbar-thumb-blue-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #60a5fa;
+}
+
+.scrollbar-track-blue-500 {
+  --scrollbar-track: #3b82f6;
+}
+
+.scrollbar-thumb-blue-500 {
+  --scrollbar-thumb: #3b82f6;
+}
+
+.hover\:scrollbar-thumb-blue-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #3b82f6;
+}
+
+.scrollbar-track-blue-600 {
+  --scrollbar-track: #2563eb;
+}
+
+.scrollbar-thumb-blue-600 {
+  --scrollbar-thumb: #2563eb;
+}
+
+.hover\:scrollbar-thumb-blue-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #2563eb;
+}
+
+.scrollbar-track-blue-700 {
+  --scrollbar-track: #1d4ed8;
+}
+
+.scrollbar-thumb-blue-700 {
+  --scrollbar-thumb: #1d4ed8;
+}
+
+.hover\:scrollbar-thumb-blue-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #1d4ed8;
+}
+
+.scrollbar-track-blue-800 {
+  --scrollbar-track: #1e40af;
+}
+
+.scrollbar-thumb-blue-800 {
+  --scrollbar-thumb: #1e40af;
+}
+
+.hover\:scrollbar-thumb-blue-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #1e40af;
+}
+
+.scrollbar-track-blue-900 {
+  --scrollbar-track: #1e3a8a;
+}
+
+.scrollbar-thumb-blue-900 {
+  --scrollbar-thumb: #1e3a8a;
+}
+
+.hover\:scrollbar-thumb-blue-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #1e3a8a;
+}
+
+.scrollbar-track-indigo-50 {
+  --scrollbar-track: #eef2ff;
+}
+
+.scrollbar-thumb-indigo-50 {
+  --scrollbar-thumb: #eef2ff;
+}
+
+.hover\:scrollbar-thumb-indigo-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #eef2ff;
+}
+
+.scrollbar-track-indigo-100 {
+  --scrollbar-track: #e0e7ff;
+}
+
+.scrollbar-thumb-indigo-100 {
+  --scrollbar-thumb: #e0e7ff;
+}
+
+.hover\:scrollbar-thumb-indigo-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #e0e7ff;
+}
+
+.scrollbar-track-indigo-200 {
+  --scrollbar-track: #c7d2fe;
+}
+
+.scrollbar-thumb-indigo-200 {
+  --scrollbar-thumb: #c7d2fe;
+}
+
+.hover\:scrollbar-thumb-indigo-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #c7d2fe;
+}
+
+.scrollbar-track-indigo-300 {
+  --scrollbar-track: #a5b4fc;
+}
+
+.scrollbar-thumb-indigo-300 {
+  --scrollbar-thumb: #a5b4fc;
+}
+
+.hover\:scrollbar-thumb-indigo-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #a5b4fc;
+}
+
+.scrollbar-track-indigo-400 {
+  --scrollbar-track: #818cf8;
+}
+
+.scrollbar-thumb-indigo-400 {
+  --scrollbar-thumb: #818cf8;
+}
+
+.hover\:scrollbar-thumb-indigo-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #818cf8;
+}
+
+.scrollbar-track-indigo-500 {
+  --scrollbar-track: #6366f1;
+}
+
+.scrollbar-thumb-indigo-500 {
+  --scrollbar-thumb: #6366f1;
+}
+
+.hover\:scrollbar-thumb-indigo-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #6366f1;
+}
+
+.scrollbar-track-indigo-600 {
+  --scrollbar-track: #4f46e5;
+}
+
+.scrollbar-thumb-indigo-600 {
+  --scrollbar-thumb: #4f46e5;
+}
+
+.hover\:scrollbar-thumb-indigo-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #4f46e5;
+}
+
+.scrollbar-track-indigo-700 {
+  --scrollbar-track: #4338ca;
+}
+
+.scrollbar-thumb-indigo-700 {
+  --scrollbar-thumb: #4338ca;
+}
+
+.hover\:scrollbar-thumb-indigo-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #4338ca;
+}
+
+.scrollbar-track-indigo-800 {
+  --scrollbar-track: #3730a3;
+}
+
+.scrollbar-thumb-indigo-800 {
+  --scrollbar-thumb: #3730a3;
+}
+
+.hover\:scrollbar-thumb-indigo-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #3730a3;
+}
+
+.scrollbar-track-indigo-900 {
+  --scrollbar-track: #312e81;
+}
+
+.scrollbar-thumb-indigo-900 {
+  --scrollbar-thumb: #312e81;
+}
+
+.hover\:scrollbar-thumb-indigo-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #312e81;
+}
+
+.scrollbar-track-purple-50 {
+  --scrollbar-track: #f5f3ff;
+}
+
+.scrollbar-thumb-purple-50 {
+  --scrollbar-thumb: #f5f3ff;
+}
+
+.hover\:scrollbar-thumb-purple-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f5f3ff;
+}
+
+.scrollbar-track-purple-100 {
+  --scrollbar-track: #ede9fe;
+}
+
+.scrollbar-thumb-purple-100 {
+  --scrollbar-thumb: #ede9fe;
+}
+
+.hover\:scrollbar-thumb-purple-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #ede9fe;
+}
+
+.scrollbar-track-purple-200 {
+  --scrollbar-track: #ddd6fe;
+}
+
+.scrollbar-thumb-purple-200 {
+  --scrollbar-thumb: #ddd6fe;
+}
+
+.hover\:scrollbar-thumb-purple-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #ddd6fe;
+}
+
+.scrollbar-track-purple-300 {
+  --scrollbar-track: #c4b5fd;
+}
+
+.scrollbar-thumb-purple-300 {
+  --scrollbar-thumb: #c4b5fd;
+}
+
+.hover\:scrollbar-thumb-purple-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #c4b5fd;
+}
+
+.scrollbar-track-purple-400 {
+  --scrollbar-track: #a78bfa;
+}
+
+.scrollbar-thumb-purple-400 {
+  --scrollbar-thumb: #a78bfa;
+}
+
+.hover\:scrollbar-thumb-purple-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #a78bfa;
+}
+
+.scrollbar-track-purple-500 {
+  --scrollbar-track: #8b5cf6;
+}
+
+.scrollbar-thumb-purple-500 {
+  --scrollbar-thumb: #8b5cf6;
+}
+
+.hover\:scrollbar-thumb-purple-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #8b5cf6;
+}
+
+.scrollbar-track-purple-600 {
+  --scrollbar-track: #7c3aed;
+}
+
+.scrollbar-thumb-purple-600 {
+  --scrollbar-thumb: #7c3aed;
+}
+
+.hover\:scrollbar-thumb-purple-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #7c3aed;
+}
+
+.scrollbar-track-purple-700 {
+  --scrollbar-track: #6d28d9;
+}
+
+.scrollbar-thumb-purple-700 {
+  --scrollbar-thumb: #6d28d9;
+}
+
+.hover\:scrollbar-thumb-purple-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #6d28d9;
+}
+
+.scrollbar-track-purple-800 {
+  --scrollbar-track: #5b21b6;
+}
+
+.scrollbar-thumb-purple-800 {
+  --scrollbar-thumb: #5b21b6;
+}
+
+.hover\:scrollbar-thumb-purple-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #5b21b6;
+}
+
+.scrollbar-track-purple-900 {
+  --scrollbar-track: #4c1d95;
+}
+
+.scrollbar-thumb-purple-900 {
+  --scrollbar-thumb: #4c1d95;
+}
+
+.hover\:scrollbar-thumb-purple-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #4c1d95;
+}
+
+.scrollbar-track-pink-50 {
+  --scrollbar-track: #fdf2f8;
+}
+
+.scrollbar-thumb-pink-50 {
+  --scrollbar-thumb: #fdf2f8;
+}
+
+.hover\:scrollbar-thumb-pink-50::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fdf2f8;
+}
+
+.scrollbar-track-pink-100 {
+  --scrollbar-track: #fce7f3;
+}
+
+.scrollbar-thumb-pink-100 {
+  --scrollbar-thumb: #fce7f3;
+}
+
+.hover\:scrollbar-thumb-pink-100::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fce7f3;
+}
+
+.scrollbar-track-pink-200 {
+  --scrollbar-track: #fbcfe8;
+}
+
+.scrollbar-thumb-pink-200 {
+  --scrollbar-thumb: #fbcfe8;
+}
+
+.hover\:scrollbar-thumb-pink-200::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #fbcfe8;
+}
+
+.scrollbar-track-pink-300 {
+  --scrollbar-track: #f9a8d4;
+}
+
+.scrollbar-thumb-pink-300 {
+  --scrollbar-thumb: #f9a8d4;
+}
+
+.hover\:scrollbar-thumb-pink-300::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f9a8d4;
+}
+
+.scrollbar-track-pink-400 {
+  --scrollbar-track: #f472b6;
+}
+
+.scrollbar-thumb-pink-400 {
+  --scrollbar-thumb: #f472b6;
+}
+
+.hover\:scrollbar-thumb-pink-400::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #f472b6;
+}
+
+.scrollbar-track-pink-500 {
+  --scrollbar-track: #ec4899;
+}
+
+.scrollbar-thumb-pink-500 {
+  --scrollbar-thumb: #ec4899;
+}
+
+.hover\:scrollbar-thumb-pink-500::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #ec4899;
+}
+
+.scrollbar-track-pink-600 {
+  --scrollbar-track: #db2777;
+}
+
+.scrollbar-thumb-pink-600 {
+  --scrollbar-thumb: #db2777;
+}
+
+.hover\:scrollbar-thumb-pink-600::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #db2777;
+}
+
+.scrollbar-track-pink-700 {
+  --scrollbar-track: #be185d;
+}
+
+.scrollbar-thumb-pink-700 {
+  --scrollbar-thumb: #be185d;
+}
+
+.hover\:scrollbar-thumb-pink-700::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #be185d;
+}
+
+.scrollbar-track-pink-800 {
+  --scrollbar-track: #9d174d;
+}
+
+.scrollbar-thumb-pink-800 {
+  --scrollbar-thumb: #9d174d;
+}
+
+.hover\:scrollbar-thumb-pink-800::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #9d174d;
+}
+
+.scrollbar-track-pink-900 {
+  --scrollbar-track: #831843;
+}
+
+.scrollbar-thumb-pink-900 {
+  --scrollbar-thumb: #831843;
+}
+
+.hover\:scrollbar-thumb-pink-900::-webkit-scrollbar-thumb:hover {
+  --scrollbar-thumb: #831843;
 }
 
 @media (min-width: 640px) {
