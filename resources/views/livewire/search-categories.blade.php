@@ -29,10 +29,9 @@
         </div>
 
         @error('search')
-            <div class="p-2 bg-red-100 rounded-lg w-full mt-2">
-                <p class=" text-sm text-red-500 "> {{ $message }} </p>
-
-            </div>
+        <div class="p-2 bg-red-100 rounded-lg w-full mt-2">
+            <p class=" text-sm text-red-500 "> {{ $message }} </p>
+        </div>
         @enderror
 
         <div class="{{ ($errors->first('search')) ? 'h-20'  :'h-32'}} mt-2 overflow-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-700">
@@ -40,7 +39,17 @@
             @isset($categories)
             <ul class="list-none list-inside ">
                 @foreach ($categories as $category)
-                <li class="bg-gray-100 mr-4 my-2 rounded-lg p-2 hover:bg-gray-300"> {{ $category->name }}</li>
+                <li class="bg-gray-100 mr-4 my-2 rounded-lg p-2 hover:bg-gray-300">
+                    {{ $category->name }}
+
+                    @if( $category->status )
+                    <span class="px-2 rounded-lg bg-green-100 float-right text-green-500 font-bold"> ON </span>
+                    @else
+                    <span class="px-2 rounded-lg bg-red-100 float-right text-red-500 font-bold"> OFF </span>
+                    @endif
+
+
+                </li>
                 @endforeach
             </ul>
             @endisset

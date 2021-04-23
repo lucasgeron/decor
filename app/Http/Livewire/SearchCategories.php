@@ -10,6 +10,8 @@ class SearchCategories extends Component
 {
     public $search = "";
 
+   
+
     protected $rules = [
         'search' => 'required|min:3|max:255'
     ];
@@ -37,10 +39,16 @@ class SearchCategories extends Component
         Category::create([
             'name' => $this->search,
             'total' => count(Category::all()),
+            'status' => false,
         ]);
 
         $this->search = "";
 
     }
+
+
+    
+
+
 
 }
