@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\{
     SearchUsers,
-    SearchCategories
+    SearchCategories,
+    ShowCategories
 };
 
 /*
@@ -18,6 +19,7 @@ use App\Http\Livewire\{
 |
 */
 
+Route::get('/categorias', ShowCategories::class)->name('categories.index');
 
 Route::get('/', function () {
     return view('welcome');

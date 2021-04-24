@@ -20,7 +20,7 @@ class SearchCategories extends Component
 
        if($this->search==null){
             return view('livewire.search-categories', [
-                // 'categories' => Category::limit(0)->get(),
+                'categories' => Category::all(),
                 'total' => count(Category::all()),
             ]);
        }
@@ -45,6 +45,9 @@ class SearchCategories extends Component
         $this->search = "";
 
     }
+
+
+
 
 
     
