@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\{
     SearchUsers,
     SearchCategories,
-    ShowCategories
+    Categories
 };
 
 /*
@@ -19,7 +19,7 @@ use App\Http\Livewire\{
 |
 */
 
-Route::get('/categorias', ShowCategories::class)->name('categories.index');
+Route::get('/categorias', Categories::class)->middleware(['auth:sanctum', 'verified'])->name('categories.index');
 
 Route::get('/', function () {
     return view('welcome');

@@ -39,7 +39,7 @@ class SearchCategories extends Component
         Category::create([
             'name' => $this->search,
             'total' => count(Category::all()),
-            'status' => false,
+            'status' => true,
         ]);
 
         $this->search = "";
