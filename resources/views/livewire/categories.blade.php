@@ -5,7 +5,7 @@
             <div class="flex justify-between items-start">
                 <!-- start -->
                 <div class="self-center">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight inline-flex"> {{ __('Categorias') }} </h2>
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight inline-flex"> {{ __('Categorias 2') }} </h2>
                 </div>
 
                 <!-- center -->
