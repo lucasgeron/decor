@@ -13,105 +13,154 @@ class Categories extends Component
     use WithPagination;
 
     public $search = "";
+    public $title = "";
     public $update = "";
-    public $confirming;
-    public $editing; 
+
+    public $create = false;
+    public $delete = false;
+    public $edit = false;
+    public $el;
 
 
-    // protected $rules = [
-    //     'search' => 'required|min:3|max:255',
-    // ];
+    public function render()
+    {
 
-    public function render() {
-        
         if ($this->search == null) {
             return view('livewire.categories', [
                 'categories' => Category::paginate(10),
                 'total' => count(Category::all()),
-               
             ]);
         }
 
         return view('livewire.categories', [
-            'categories' => Category::where('name', 'like', "%{$this->search}%")->paginate(10),
-            'total' => count(Category::where('name', 'like', "%{$this->search}%")->get()),
-           
+            'categories' => Category::where('title', 'like', "%{$this->search}%")->paginate(10),
+            'total' => count(Category::where('title', 'like', "%{$this->search}%")->get()),
+
         ]);
     }
 
-    public function create(){
+    public function show($input, $id = null)
+    {
 
-        // $this->validate();
+        $this->$input = true;
+
+        if ($id != null)
+            $this->el = $id;
+
+        switch ($input) {
+            case 'edit':
+                $obj = Category::find($id);
+                $this->update = $obj->title;
+                $this->delete = false;
+                break;
+        }
+    }
+
+    public function hide($input)
+    {
+
+        switch ($input) {
+            case 'create':
+                $this->title = "";
+                break;
+
+            case 'delete':
+                $this->el = null;
+                break;
+        }
+
+        $this->$input = false;
+    }
+
+    public function create()
+    {
         $this->validate([
-                'search' => 'required|min:3|max:255',
+            'title' => 'required|min:3|max:255',
         ]);
 
         Category::create([
-            'name' => $this->search,
+            'title' => $this->title,
             'total' => count(Category::all()),
             'status' => false,
         ]);
 
-        $this->search = "";
+
+
+        // session()->flash('message', [
+        //     'title'   => 'Error reading uploaded file',
+        //     'desc' => 'Blah di ba doo baa, di ba dee daa',
+        //     'type'    => 'warning', 
+        //    ]);
+
+        $flash = [
+            'color' => 'indigo',
+            'title' => "Operação Realizada",
+            'message' => 'A Categoria ' . $this->title . " foi criada com sucesso!"
+        ];
+
+        session()->flash('flash', $flash);
+
+        $this->title = "";
     }
 
-    public function toogle($id){
+    public function toogle($id)
+    {
 
         $category = Category::find($id);
 
-
-
-        if($category->status){
+        if ($category->status) {
             $category->status = false;
-        }else {
+        } else {
             $category->status = true;
         }
 
         $category->save();
 
-        session()->flash('message', 'Order deleted successfully!');
+        $flash = [
+            'color' => 'indigo',
+            'title' => "Operação Realizada",
+            'message' => 'A Categoria ' . $category->title . " teve seu status atualizado!"
+        ];
 
+        session()->flash('flash', $flash);
     }
 
-    public function confirmDelete($id){
-        $this->confirming = $id;
-    }
+    public function delete($id)
+    {
 
-    public function cancel() {
-        $this->confirming = "";
-        $this->editing = "";
-    }
+        $obj = Category::find($id);
 
-    public function delete($id)  {
+        $flash = [
+            'color' => 'indigo',
+            'title' => "Operação Realizada",
+            'message' => 'A Categoria ' . $obj->title . "  foi removida com sucesso!"
+        ];
+
+        session()->flash('flash', $flash);
         Category::destroy($id);
     }
 
-    public function edit($id) {
-        
-        $category = Category::find($id);
-
-        $this->editing = $category->id;
-        $this->update = $category->name;
-
-    }
-
-    public function update(){
+    public function update()
+    {
 
         $this->validate([
             'update' => 'required|min:3|max:255',
         ]);
 
-        $category = Category::find($this->editing);
+        $category = Category::find($this->el);
 
-        $category->name = $this->update;
+        $category->title = $this->update;
         $category->save();
 
         $this->update = "";
-        $this->editing = "";
+        $this->edit = false;
 
+        $flash = [
+            'color' => 'indigo',
+            'title' => "Operação Realizada",
+            'message' => 'A Categoria ' . $category->title . " foi atualizada com sucesso!"
+        ];
+
+        session()->flash('flash', $flash);
     }
-
-
-
-
 }
