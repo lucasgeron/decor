@@ -110,11 +110,16 @@
         </div>
         @enderror
 
+
+        @if(count($categories) == 0)
+            <p class="text-center text-gray-500"> Oops, nenhuma <b> categoria </b> foi encontrada.  <button wire:click="show('create')" class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">Clique para criar uma Nova Categoria.</button>  </p>
+        @else
+
         <table class="w-full table-fixed justify-between">
             <thead>
                 <tr>
                     <th class="w-1/12 text-center" wire:click="sortBy('status')" style="cursor: pointer">Status @if(!$onlyActives) @include('layouts.partials._sort-icon',['field'=>'status']) @endif</th>
-                    <th class="w-2/12 md:w-4/12 lg:w-6/12 text-left" wire:click="sortBy('title')" style="cursor: pointer">Categorias @include('layouts.partials._sort-icon',['field'=>'title'])</th>
+                    <th class="w-2/12 text-center md:text-left md:w-4/12 lg:w-6/12" wire:click="sortBy('title')" style="cursor: pointer">Categorias @include('layouts.partials._sort-icon',['field'=>'title'])</th>
                     <th class="w-2/12 text-center">Produtos</th>
                     <th class="w-3/12 text-center hidden sm:table-cell  ">Ações</th>
                 </tr>
@@ -135,7 +140,7 @@
                     </td>
 
                     
-                    <td> {{-- title --}}
+                    <td class="text-center md:text-left"> {{-- title --}}
                         @if($el===$category->id && $edit)
                             <input wire:model="update" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Categoria">
                         @else
@@ -144,7 +149,7 @@
                     </td>
 
                     <td class="text-center"> {{-- ammount --}}
-                        --
+                        ####
                     </td>
                     
                     <td class="text-center hidden sm:table-cell"> {{-- actions --}}
@@ -174,6 +179,7 @@
             </tbody> 
         </table>
 
+        @endif
 
         </div> {{-- end Container --}}
     </div>  {{-- end Main --}}
