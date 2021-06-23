@@ -12,12 +12,11 @@
                 <!-- end -->
                 <div class="flex-1 flex-wrap w-full">
                     <input wire:model="search" class=" max-w-sm float-right appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Pesquisar">
-               </div>
+                </div>
 
             </div>
         </div>
     </div>
-
 
     @if($create)
         <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6">
@@ -71,15 +70,40 @@
         </div>  
     @endif
 
-    <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6">
-        <div class="w-full bg-white rounded-lg shadow-md px-4 py-4">
+   
+    <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6 pb-4">   {{-- Main --}}
+        <div class="w-full bg-white rounded-lg shadow-md px-4 py-4 ">  {{-- Container --}}
 
-        <div class="pl-2 pr-0 py-2">
-            {{ $categories->links() }}
+       
+            
+        <div class="flex">
+            <div class="flex-auto mr-2 py-2">
+                @if ($categories->hasPages())
+                    {{ $categories->links() }}
+                @endif
+            </div>
+
+            <div class="my-auto py-1">
+                <div class="col form-inline">
+                    <select wire:model="perPage" class="form-control rounded-md border-gray-300 focus:ring-0 font-extralight text-xs py-1 pr-6 ">
+                        <option value="10">10 por Página</option>
+                        <option value="25">25 por Página</option>
+                        <option value="50">50 por Página</option>
+                        <option value="100">100 por Página</option>
+                       
+                    </select>
+                    {{-- <span class="font-extralight text-xs"></span> --}}
+                </div>
+
+                <label class="w-1/16 flex radio cursor-pointer font-extralight text-xs mt-1">
+                    <input wire:model="onlyActives" type="checkbox" class="rounded my-auto bg-gray-200 border-transparent focus:border-transparent focus:bg-gray-200 text-gray-700 focus:ring-0 focus:ring-offset-0">
+                    <div class="ml-2">Somente Ativos</div>
+                </label> 
+            </div>
+           
         </div>
-
         <hr class="my-2">
-
+     
         @error('update')
         <div class="p-2 bg-red-100 rounded-lg w-full mb-4">
             <p class=" text-sm text-red-500 "> {{ $message }} </p>
@@ -89,8 +113,8 @@
         <table class="w-full table-fixed justify-between">
             <thead>
                 <tr>
-                    <th class="w-1/12 text-center">Status</th>
-                    <th class="w-2/12 md:w-4/12 lg:w-6/12 text-left">Categorias</th>
+                    <th class="w-1/12 text-center" wire:click="sortBy('status')" style="cursor: pointer">Status @if(!$onlyActives) @include('layouts.partials._sort-icon',['field'=>'status']) @endif</th>
+                    <th class="w-2/12 md:w-4/12 lg:w-6/12 text-left" wire:click="sortBy('title')" style="cursor: pointer">Categorias @include('layouts.partials._sort-icon',['field'=>'title'])</th>
                     <th class="w-2/12 text-center">Produtos</th>
                     <th class="w-3/12 text-center hidden sm:table-cell  ">Ações</th>
                 </tr>
@@ -151,7 +175,10 @@
         </table>
 
 
-        </div>
-    </div> 
+        </div> {{-- end Container --}}
+    </div>  {{-- end Main --}}
+
+
+   
 
 </div>

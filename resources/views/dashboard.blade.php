@@ -27,7 +27,7 @@
         <div class="w-full bg-white rounded-lg shadow-md px-4 py-4">
 
             
-            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+            <div class="grid grid-cols-1 gap-2 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
 
                 <a href="{{ route('categories.index' ) }}" class="h-32 py-14 md:h-40 md:py-18 lg:h-52 lg:py-24 w-full rounded-md align-middle text-center text-lg bg-gray-200 hover:bg-indigo-500 hover:shadow-md hover:text-white"> Categorias </a>
                 @for ($i=0; $i< 11; $i++) 

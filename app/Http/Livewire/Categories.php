@@ -20,22 +20,27 @@ class Categories extends Component
     public $delete = false;
     public $edit = false;
     public $el;
+    public $onlyActives;
+    public $sortBy = 'title';
+    public $sortDirection = 'asc';
+    public $perPage = 10;
 
 
     public function render()
     {
-
-        if ($this->search == null) {
-            return view('livewire.categories', [
-                'categories' => Category::paginate(10),
-                'total' => count(Category::all()),
-            ]);
-        }
+        $categories = Category::query()
+                ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+                    return $query->where('title', "like", "%{$this->search}%");
+                })
+                ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
+                    return $query->where('status', "1");
+                })
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate($this->perPage);
 
         return view('livewire.categories', [
-            'categories' => Category::where('title', 'like', "%{$this->search}%")->paginate(10),
-            'total' => count(Category::where('title', 'like', "%{$this->search}%")->get()),
-
+            'categories' => $categories,
+            'total' => count($categories),
         ]);
     }
 
@@ -162,5 +167,16 @@ class Categories extends Component
         ];
 
         session()->flash('flash', $flash);
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortDirection == 'asc') {
+            $this->sortDirection = 'desc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        return $this->sortBy = $field;
     }
 }
