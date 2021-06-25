@@ -6,12 +6,12 @@
             {{ $title }}
         </div>
 
-        <div class="mt-4">
+        <div class="">
             {{ $content }}
         </div>
     </div>
-
+{{-- 
     <div class="px-6 py-4 bg-gray-100 text-right">
         {{ $footer }}
-    </div>
+    </div> --}}
 </x-jet-modal>

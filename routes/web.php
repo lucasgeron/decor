@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\{
-    SearchUsers,
-    SearchCategories,
-    Categories
+    Categories,
+    Stocks, 
+    Teste
 };
 
 /*
@@ -19,6 +19,8 @@ use App\Http\Livewire\{
 |
 */
 
+Route::get('/teste', Teste::class)->middleware(['auth:sanctum', 'verified'])->name('teste');
+Route::get('/estoques', Stocks::class)->middleware(['auth:sanctum', 'verified'])->name('stocks.index');
 Route::get('/categorias', Categories::class)->middleware(['auth:sanctum', 'verified'])->name('categories.index');
 
 Route::get('/', function () {

@@ -24,7 +24,7 @@
     <body class="antialiased " style="background-color: rgba(243, 244, 246);">
 
 
-        <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
+        <div class="relative flex items-center justify-center min-h-screen sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -41,6 +41,8 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
+            <div class="my-auto">
+
                 <div class="text-center text-sm my-0 text-gray-500">Modo Desenvolvedor </div>
                 
                 <div class=" pt-8  sm:pt-0">
@@ -55,6 +57,8 @@
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
+
+            </div>
                 
 
             </div>

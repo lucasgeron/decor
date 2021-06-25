@@ -7,29 +7,62 @@ use App\Models\Category;
 use Livewire\Request;
 use Livewire\WithPagination;
 
+
+
 class Categories extends Component
 {
 
     use WithPagination;
+    // use WithSorting;
 
+    // Model Object
+    public Category $obj;
+
+
+    // rules
+    protected $rules = [
+        'obj.title' => 'required|min:3|max:255',
+        'obj.status' => '', // required to work correctly
+    ];
+    
+    // messages for errors
+    protected $messages = [
+        'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
+        'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
+        'obj.title.max' => 'O <b> Título </b> não poter ter mais de 255 caractéres.',
+    ];
+    
+    // modals
+    public $modals = [
+        "create" => false,
+        "delete" => false,
+        "edit" => false,
+        "actions" => false,
+    ];
+
+    // filters
+    protected $queryString = [
+        'search'=> ['except' => '']
+    ];
     public $search = "";
-    public $title = "";
-    public $update = "";
-
-    public $create = false;
-    public $delete = false;
-    public $edit = false;
-    public $el;
     public $onlyActives;
+
+    // database params
     public $sortBy = 'title';
     public $sortDirection = 'asc';
     public $perPage = 10;
 
+    // initialize empty object (prevent null errors)
+    public function mount()
+    {
+        $this->obj = new Category();
+    }
 
     public function render()
     {
+        
         $categories = Category::query()
-                ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+        ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
                     return $query->where('title', "like", "%{$this->search}%");
                 })
                 ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
@@ -40,72 +73,54 @@ class Categories extends Component
 
         return view('livewire.categories', [
             'categories' => $categories,
-            'total' => count($categories),
+            
         ]);
     }
 
-    public function show($input, $id = null)
-    {
+    public function showModal ($modal, $id = null){
 
-        $this->$input = true;
+        $this->resetValidation();
 
-        if ($id != null)
-            $this->el = $id;
-
-        switch ($input) {
-            case 'edit':
-                $obj = Category::find($id);
-                $this->update = $obj->title;
-                $this->delete = false;
-                break;
+        if($id != null){
+            $this->obj = Category::find($id);
+        }else {
+            $this->obj = new Category([            
+            'status' => false,
+            ]);
         }
-    }
+        
+        $this->modals[$modal] = true;
 
-    public function hide($input)
-    {
-
-        switch ($input) {
-            case 'create':
-                $this->title = "";
-                break;
-
-            case 'delete':
-                $this->el = null;
-                break;
+        if($modal != 'actions'){
+            $this->modals['actions'] = false;    
         }
 
-        $this->$input = false;
     }
+
+    public function hideModal ($modal){
+        $this->modals[$modal] = false;
+    }
+
+    
 
     public function create()
     {
-        $this->validate([
-            'title' => 'required|min:3|max:255',
-        ]);
+
+        $this->validate();
 
         Category::create([
-            'title' => $this->title,
-            'total' => count(Category::all()),
-            'status' => false,
+            'title' => $this->obj->title,
+            'status' => $this->obj->status,
         ]);
-
-
-
-        // session()->flash('message', [
-        //     'title'   => 'Error reading uploaded file',
-        //     'desc' => 'Blah di ba doo baa, di ba dee daa',
-        //     'type'    => 'warning', 
-        //    ]);
 
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria ' . $this->title . " foi criada com sucesso!"
+            'message' => 'A Categoria <b>' . $this->obj['title'] . "</b> foi criada com sucesso!"
         ];
 
         session()->flash('flash', $flash);
-
-        $this->title = "";
+        $this->modals['create'] = false;
     }
 
     public function toogle($id)
@@ -113,60 +128,64 @@ class Categories extends Component
 
         $category = Category::find($id);
 
+
+        $msg;
+        $color;
+
         if ($category->status) {
             $category->status = false;
+            $msg = 'A Categoria <b>' . $category->title . "</b> foi desabilitada.";
         } else {
             $category->status = true;
+            $msg = 'A Categoria <b>' . $category->title . "</b> foi habilitada.";
         }
 
         $category->save();
 
+        
+
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria ' . $category->title . " teve seu status atualizado!"
+            'message' => $msg
         ];
 
         session()->flash('flash', $flash);
     }
 
-    public function delete($id)
+    public function delete()
     {
-
-        $obj = Category::find($id);
-
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria ' . $obj->title . "  foi removida com sucesso!"
+            'message' => 'A Categoria <b>' . $this->obj->title . "</b>  foi removida com sucesso!"
         ];
 
         session()->flash('flash', $flash);
-        Category::destroy($id);
+        Category::destroy($this->obj->id);
+
+
+        $this->modals['delete'] = false;
+        $this->obj = new Category();
     }
 
     public function update()
     {
 
-        $this->validate([
-            'update' => 'required|min:3|max:255',
-        ]);
+        $this->validate();
 
-        $category = Category::find($this->el);
 
-        $category->title = $this->update;
-        $category->save();
-
-        $this->update = "";
-        $this->edit = false;
-
+        $this->obj->save();
+        
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria ' . $category->title . " foi atualizada com sucesso!"
+            'message' => 'A Categoria  <b>' . $this->obj->title . "</b> foi atualizada com sucesso!"
         ];
-
+        
         session()->flash('flash', $flash);
+        $this->modals['edit'] = false;
+        $this->obj = new Category();
     }
 
     public function sortBy($field)
@@ -179,4 +198,5 @@ class Categories extends Component
 
         return $this->sortBy = $field;
     }
+
 }
