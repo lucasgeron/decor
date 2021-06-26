@@ -95,12 +95,14 @@ class Categories extends Component
             $this->obj = Category::find($id);
         }else {
             $this->obj = new Category([            
-            'status' => false,
+                'status' => true,
+                'title' => ucfirst($this->search),
             ]);
         }
         
         $this->modals[$modal] = true;
 
+        // close the actions modals to show modal target 
         if($modal != 'actions'){
             $this->modals['actions'] = false;    
         }

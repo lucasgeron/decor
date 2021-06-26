@@ -14,9 +14,16 @@
 
                 <!-- end -->
                 <div class="flex-1 flex-wrap w-full">
-                    <input wire:model="search"
-                        class=" max-w-sm float-right appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        type="text" placeholder="Pesquisar">
+                    <div class="flex -m-2 -p-3 max-w-sm float-right appearance-none w-full bg-gray-200 text-gray-700 border-gray-200 rounded-lg  focus:outline-none border-0 focus:ring-0 focus:ring-offset-0">
+                        @if($search)
+                            <i class="fas fa-search my-auto ml-4 text-indigo-700"></i>
+                        @else
+                            <i class="fas fa-search my-auto ml-4"></i>
+                        @endif
+                        <input wire:model="search"
+                         class=" max-w-sm float-right appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded-lg p-2 focus:outline-none border-0 focus:ring-0 focus:ring-offset-0" type="text" placeholder=" Pesquisar">
+                    </div>
+                
                 </div>
 
             </div>
@@ -50,9 +57,9 @@
                         <div class="mr-2 py-2">
                             <p class="text-sm text-gray-700 leading-5">
                                 @if($categories->total() > 0 )
-                                <span>Exibindo {{ $categories->total() }} @if($categories->total() == 1) resultado @else resultados @endif</span>
+                                <span>Exibindo {{ $categories->total() }} @if($categories->total() == 1) resultado. @else resultados. @endif</span>
                                 @else
-                                <span>Nenhum resultados para exibir</span>
+                                <span>Nenhum resultados para exibir.</span>
                                 @endif
                             </p>
                         </div>
@@ -74,7 +81,7 @@
                     </div>
                     {{-- somente ativos --}}
                     <label class="w-1/16 flex radio cursor-pointer font-extralight text-xs mt-1">
-                        <input wire:model="onlyActives" type="checkbox"
+                        <input wire:model="onlyActives" type="checkbox"  wire:change="gotoPage(0)"
                             class="rounded my-auto bg-gray-200 border-transparent focus:border-transparent focus:bg-gray-200 text-gray-700 focus:ring-0 focus:ring-offset-0">
                         <div class="ml-2">Somente Ativos</div>
                     </label>
@@ -87,11 +94,19 @@
             {{-- corpo da tabela : vazio --}}
             @if(count($categories) == 0)
                 <p class="text-center text-gray-500">
-                    Oops, nenhuma <b> categoria </b> foi encontrada.
-                    <button wire:click="showModal('create')"
-                        class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
-                        Clique para criar uma Nova Categoria.
-                    </button>
+                    @if($this->search)
+                        A pesquisa não encontrou resultados.
+                        <button wire:click="showModal('create')"
+                            class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
+                            Criar Categoria <b class="capitalize"> {{$this->search}}</b>.
+                        </button>
+                        @else
+                        Oops, nenhuma <b> categoria </b> foi encontrada.
+                        <button wire:click="showModal('create')"
+                            class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
+                            Clique para criar uma Nova Categoria.
+                        </button>
+                    @endif
                 </p>
             {{-- corpo da tabela : data --}}
             @else
@@ -213,7 +228,7 @@
                                 Título
                             </label>
                             <input wire:model="obj.title" 
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 type="text" placeholder="Categoria">
                         </div>
                     </div>
@@ -221,13 +236,13 @@
 
                 <div class="flex justify-end  w-full py-2 ">
                     <button wire:click="hideModal('create')" 
-                        class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded"
+                        class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
                         type="button">
                         Cancelar
                     </button>
 
                     <button
-                        class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded"
+                        class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg"
                         type="submit">
                         Salvar
                     </button>
@@ -267,7 +282,7 @@
                             Título
                         </label>
                         <input wire:model="obj.title" disabled
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             type="text" placeholder="Categoria">
                     </div>
                 </div>
@@ -275,13 +290,13 @@
 
             <div class="flex justify-end  w-full py-2 ">
                 <button wire:click="hideModal('delete')"
-                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded"
+                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
                     type="button">
                     Cancelar
                 </button>
 
                 <button wire:click="delete()"
-                    class=" flex-1 max-w-xs bg-red-500 hover:bg-red-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded">Remover</button>
+                    class=" flex-1 max-w-xs bg-red-500 hover:bg-red-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg">Remover</button>
 
             </div>
 
@@ -324,7 +339,7 @@
                             Título
                         </label>
                         <input wire:model="obj.title"
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             type="text" placeholder="Categoria">
                     </div>
                 </div>
@@ -333,13 +348,13 @@
 
             <div class="flex justify-end  w-full py-2 ">
                 <button wire:click="hideModal('edit')"
-                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded"
+                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
                     type="button">
                     Cancelar
                 </button>
 
                 <button wire:click="update({{ $obj->id }})"
-                    class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded"
+                    class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg"
                     type="submit">
                     Salvar
                 </button>
@@ -379,7 +394,7 @@
                             Título
                         </label>
                         <input wire:model="obj.title" disabled
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             type="text" placeholder="Categoria">
                     </div>
                 </div>
@@ -396,13 +411,13 @@
 
             <div class=" justify-end gap-y-2 w-full py-2 ">
                 <button wire:click="showModal('delete', {{ $obj->id }})"
-                    class="mt-2 w-full  text-center  bg-red-500 hover:bg-red-700 focus:shadow-outline text-white  p-2 rounded-lg focus:outline-none ">Remover</button>
+                    class="mt-2 w-full  text-center  bg-red-500 hover:bg-red-700 focus:shadow-outline text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Remover</button>
                
                     <button wire:click="showModal('edit', {{ $obj->id }})"
-                    class="mt-2 w-full  text-center  bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline text-white  p-2 rounded-lg focus:outline-none ">Editar</button>
+                    class="mt-2 w-full  text-center  bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Editar</button>
                
                     <button wire:click="hideModal('actions')"
-                    class="mt-2 w-full  text-center  bg-gray-100 hover:bg-gray-500 focus:shadow-outline text-gray-700 hover:text-white  p-2 rounded-lg focus:outline-none ">Cancelar</button>
+                    class="mt-2 w-full  text-center  bg-gray-100 hover:bg-gray-500 focus:shadow-outline text-gray-700 hover:text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Cancelar</button>
                
             </div>
 
