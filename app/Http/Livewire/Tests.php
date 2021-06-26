@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Category;
 
-class Teste extends Component
+class Tests extends Component
 {
 
     public Category $user;
@@ -20,7 +20,7 @@ class Teste extends Component
 
     public function render()
     {
-        return view('livewire.teste');
+        return view('livewire.tests');
     }
 
     public function show($input)

@@ -7,7 +7,7 @@ use App\Models\Category;
 use Livewire\Request;
 use Livewire\WithPagination;
 
-class Stocks extends Component
+class Locales extends Component
 {
 
     use WithPagination;
@@ -80,7 +80,7 @@ class Stocks extends Component
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->perPage);
 
-        return view('livewire.stocks', [
+        return view('livewire.locales', [
             'categories' => $categories,
             
         ]);
@@ -95,12 +95,14 @@ class Stocks extends Component
             $this->obj = Category::find($id);
         }else {
             $this->obj = new Category([            
-            'status' => false,
+                'status' => true,
+                'title' => ucfirst($this->search),
             ]);
         }
         
         $this->modals[$modal] = true;
 
+        // close the actions modals to show modal target 
         if($modal != 'actions'){
             $this->modals['actions'] = false;    
         }
