@@ -1,4 +1,4 @@
-<div>
+<div> 
 
     {{-- Header --}}
     <div class="bg-white shadow">
@@ -23,18 +23,18 @@
         </div>
     </div>
 
-
-
+    {{-- notifications --}}
     @if (session()->has('flash'))
-    <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6">
-        <div class="w-full  bg-white text-gray-700  rounded-lg shadow-md px-4 py-4">
-            <p> <span class="uppercase  text-{{ session('flash')['color'] }}-500 font-bold">
-                    {{ session('flash')['title']  }} </span> - {!! session('flash')['message']  !!}
-            </p>
+        <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6">
+            <div class="w-full  bg-white text-gray-700  rounded-lg shadow-md px-4 py-4">
+                <p> <span class="uppercase  text-{{ session('flash')['color'] }}-500 font-bold">
+                        {{ session('flash')['title']  }} </span> - {!! session('flash')['message']  !!}
+                </p>
+            </div>
         </div>
-    </div>
     @endif
 
+    {{-- content --}}
     <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6 pb-4"> {{-- Main --}}
         <div class="w-full bg-white rounded-lg shadow-md px-4 py-4 "> {{-- Container --}}
 
@@ -86,87 +86,89 @@
 
             {{-- corpo da tabela : vazio --}}
             @if(count($categories) == 0)
-            <p class="text-center text-gray-500">
-                Oops, nenhuma <b> categoria </b> foi encontrada.
-                <button wire:click="showModal('create')"
-                    class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
-                    Clique para criar uma Nova Categoria.
-                </button>
-            </p>
+                <p class="text-center text-gray-500">
+                    Oops, nenhuma <b> categoria </b> foi encontrada.
+                    <button wire:click="showModal('create')"
+                        class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
+                        Clique para criar uma Nova Categoria.
+                    </button>
+                </p>
             {{-- corpo da tabela : data --}}
             @else
             {{-- corpo da tabela --}}
-            <table class="w-full table-fixed justify-between">
-                {{-- cabeçalhos --}}
-                <thead>
-                    <tr>
-                        <th class="w-1/12 text-center" wire:click="sortBy('status')" style="cursor: pointer">Status
-                            @if(!$onlyActives) @include('layouts.partials._sort-icon',['field'=>'status']) @endif</th>
-                        <th class="w-2/12 text-center md:text-left md:w-4/12 lg:w-6/12" wire:click="sortBy('title')"
-                            style="cursor: pointer">Categorias
-                            @include('layouts.partials._sort-icon',['field'=>'title'])
-                        </th>
-                        <th class="w-2/12 text-center hidden md:table-cell ">Produtos</th>
-                        <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
-                    </tr>
-                </thead>
+                <table class="w-full table-fixed justify-between">
+                    {{-- cabeçalhos --}}
+                    <thead>
+                        <tr>
+                            {{-- 1 --}}
+                            <th class="w-1/12 text-center cursor-pointer" wire:click="sortBy('status')" >Status
+                                @if(!$onlyActives) @include('layouts.partials._sort-icon',['field'=>'status']) @endif</th>
+                            {{-- 2 --}}
+                            <th class="w-2/12 text-center md:text-left md:w-4/12 lg:w-6/12" wire:click="sortBy('title')"
+                                style="cursor: pointer">Categorias
+                                @include('layouts.partials._sort-icon',['field'=>'title'])
+                            </th>
+                            {{-- 3 --}}
+                            <th class="w-2/12 text-center hidden md:table-cell ">Produtos</th>
+                            {{-- 4 --}}
+                            <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
+                        </tr>
+                    </thead>
 
-                {{-- tabela --}}
-                <tbody>
-                    @foreach ($categories as $category)
-                    <tr class=" h-12 align-middle hover:bg-gray-100">
+                    {{-- tabela --}}
+                    <tbody>
+                        @foreach ($categories as $category)
+                        <tr class=" h-12 align-middle hover:bg-gray-100">
 
-                        {{-- status --}}
-                        <td class="text-center ">
-                            {{-- <form method="post" wire:submit.prevent="toogle( {{ $category->id }} )"> --}}
-                            @if ($category->status)
-                            <button wire:click="toogle({{ $category->id }})"
-                                class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
-                            @else
-                            <button wire:click="toogle({{ $category->id }})"
-                                class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200  focus:outline-none">OFF</button>
-                            @endif
-                            {{-- </form> --}}
-                        </td>
+                            {{-- status --}}
+                            <td class="text-center ">
+                                @if ($category->status)
+                                <button wire:click="toogle({{ $category->id }})"
+                                    class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
+                                @else
+                                <button wire:click="toogle({{ $category->id }})"
+                                    class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200  focus:outline-none">OFF</button>
+                                @endif
+                            </td>
 
-                        {{-- title --}}
-                        <td class="text-center md:text-left">
-                            {{ $category->title }}
-                        </td>
+                            {{-- title --}}
+                            <td class="text-center md:text-left">
+                                {{ $category->title }}
+                            </td>
 
-                        {{-- ammount --}}
-                        <td class="text-center hidden md:table-cell">
-                            <span> ### </span>
-                        </td>
+                            {{-- ammount --}}
+                            <td class="text-center hidden md:table-cell">
+                                <span> ### </span>
+                            </td>
 
-                        {{-- actions --}}
-                        <td class="text-center">
-                            <div class="flex justify-between gap-1">
+                            {{-- actions --}}
+                            <td class="text-center">
+                                <div class="flex justify-between gap-1">
 
-                                {{-- actions for mobile --}}
-                                <button wire:click="showModal('actions', {{ $category->id }})"
-                                    class="md:hidden text-center p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
-                            
-                                {{-- actions for md or more --}}
-                                <button wire:click="showModal('delete', {{ $category->id }})"
-                                    class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none ">Remover</button>
-                                    
-                                    <button wire:click="showModal('edit', {{ $category->id }})" 
-                                    class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Editar</button>
-                                   
+                                    {{-- actions for mobile --}}
                                     <button wire:click="showModal('actions', {{ $category->id }})"
-                                        class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
+                                        class="md:hidden text-center p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
+                                
+                                    {{-- actions for md or more --}}
+                                    <button wire:click="showModal('delete', {{ $category->id }})"
+                                        class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none ">Remover</button>
+                                        
+                                        <button wire:click="showModal('edit', {{ $category->id }})" 
+                                        class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Editar</button>
+                                    
+                                        <button wire:click="showModal('actions', {{ $category->id }})"
+                                            class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
 
-                                {{-- <a href="#"
-                                    class="hidden md:block  text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none ">Ver</a> --}}
+                                    {{-- <a href="#"
+                                        class="hidden md:block  text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none ">Ver</a> --}}
 
-                            </div>
-                        </td>
+                                </div>
+                            </td>
 
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
             @endif
 

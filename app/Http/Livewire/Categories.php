@@ -7,17 +7,13 @@ use App\Models\Category;
 use Livewire\Request;
 use Livewire\WithPagination;
 
-
-
 class Categories extends Component
 {
 
     use WithPagination;
-    // use WithSorting;
 
     // Model Object
     public Category $obj;
-
 
     // rules
     protected $rules = [
@@ -52,9 +48,22 @@ class Categories extends Component
     public $sortDirection = 'asc';
     public $perPage = 10;
 
-    // initialize empty object (prevent null errors)
+    // database methods
+    public function sortBy($field)
+    {
+        if ($this->sortDirection == 'asc') {
+            $this->sortDirection = 'desc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        return $this->sortBy = $field;
+    }
+
+    // livewire methods
     public function mount()
     {
+        // initialize empty object (prevent null errors)
         $this->obj = new Category();
     }
 
@@ -77,6 +86,7 @@ class Categories extends Component
         ]);
     }
 
+    // navigation methods
     public function showModal ($modal, $id = null){
 
         $this->resetValidation();
@@ -101,8 +111,7 @@ class Categories extends Component
         $this->modals[$modal] = false;
     }
 
-    
-
+    // CRUD
     public function create()
     {
 
@@ -116,7 +125,7 @@ class Categories extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj['title'] . "</b> foi criada com sucesso!"
+            'message' => 'A Categoria <b>' . $this->obj['title'] . "</b> foi criada."
         ];
 
         session()->flash('flash', $flash);
@@ -158,7 +167,7 @@ class Categories extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj->title . "</b>  foi removida com sucesso!"
+            'message' => 'A Categoria <b>' . $this->obj->title . "</b>  foi removida."
         ];
 
         session()->flash('flash', $flash);
@@ -180,7 +189,7 @@ class Categories extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria  <b>' . $this->obj->title . "</b> foi atualizada com sucesso!"
+            'message' => 'A Categoria  <b>' . $this->obj->title . "</b> foi atualizada."
         ];
         
         session()->flash('flash', $flash);
@@ -188,15 +197,5 @@ class Categories extends Component
         $this->obj = new Category();
     }
 
-    public function sortBy($field)
-    {
-        if ($this->sortDirection == 'asc') {
-            $this->sortDirection = 'desc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        return $this->sortBy = $field;
-    }
 
 }
