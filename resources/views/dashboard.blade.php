@@ -43,7 +43,7 @@
                  
                  @for ($i=0; $i< 9; $i++) 
                  {{-- card with icon --}}
-                 <a class="h-32  bg-yellow-500 py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-200 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="#">                
+                 <a class="h-32   py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-100 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="#">                
                      <div class="grid">
                          <i class="fa-icons hidden md:block fa-4x mb-4 fas "></i>
                          <p class="py-6 sm:py-6 md:py-0 uppercase tracking-wide font-bold ">  . . .  </p>
