@@ -53,6 +53,24 @@
             </div>
         </div> -->
 
+        <!-- {{-- descrition --}} -->
+        <div class="py-2">
+            <h3 class="py-2 font-bold uppercase tracking-wide"> Teste de Produto  </h3>
+            <div class="">
+                <div class="text-center max-w-lg mx-auto mt-6">
+                    <div class="h-4 bg-gray-500 w-40 block mx-auto rounded-sm"></div>
+                    <div class="h-2 bg-gray-400 w-64 mt-4 block mx-auto rounded-sm"></div>
+                    <div class="h-2 bg-gray-400 w-48 mt-2 block mx-auto rounded-sm"></div>
+                  </div>    
+
+                  <div class="flex justify-center mt-4">
+                    <div class="rounded-sm h-8 w-20 px-4 bg-gray-200 mr-2"></div>
+                    <div class="rounded-sm h-8 w-20 px-4 bg-green-300"></div>
+                  </div>
+
+            </div>
+        </div>
+
 
    
         <!-- {{-- descrition --}} -->
@@ -60,7 +78,7 @@
             <h3 class="py-2 font-bold uppercase tracking-wide"> COLORS EXAMPLE </h3>
             <div class="">
             <div class="container mx-auto p-6">
-        <div>
+            <div>
             <div class="grid gap-6 grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-9">
                 <div>
                     <div class="h-12 w-12 mx-auto rounded-md bg-gray-100"></div>

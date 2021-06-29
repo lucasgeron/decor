@@ -6,7 +6,7 @@
             <div class="flex justify-between items-center">
                 <!-- start -->
                 <div class="flex-1 self-center">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight inline-flex"> {{ __('Categorias') }}
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight inline-flex"> {{ __('Produtos') }}
                     </h2>
                     <button wire:click="showModal('create')"
                         class="focus:outline-none px-3 rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">Criar</button>
@@ -43,23 +43,25 @@
         </div>
     @endif
 
+
     {{-- content --}}
     <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6 pb-4"> {{-- Main --}}
         <div class="w-full bg-white rounded-lg shadow-md px-4 py-4 "> {{-- Container --}}
+
 
             {{-- barra superior da tabela --}}
             <div class="flex">
 
                 {{-- paginação --}}
                 <div class="flex-grow mr-2 py-2">
-                    @if ($categories->hasPages())
-                        {{ $categories->links() }}
+                    @if ($products->hasPages())
+                        {{ $products->links() }}
                     @else
                         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                             <div class="mr-2 py-2">
                                 <p class="text-sm text-gray-700 leading-5">
-                                    @if ($categories->total() > 0)
-                                    <span>Exibindo {{ $categories->total() }} @if ($categories->total() == 1) resultado. @else resultados.
+                                    @if ($products->total() > 0)
+                                    <span>Exibindo {{ $products->total() }} @if ($products->total() == 1) resultado. @else resultados.
                                             @endif</span>
                                     @else
                                         <span>Nenhum resultados para exibir.</span>
@@ -95,7 +97,7 @@
             <hr class="my-2">
 
             {{-- corpo da tabela : vazio --}}
-            @if (count($categories) == 0)
+            @if (count($products) == 0)
                 <p class="text-center text-gray-500">
                     @if ($this->search)
                         A pesquisa não encontrou resultados.
@@ -125,11 +127,11 @@
                             </th>
                             {{-- 2 --}}
                             <th class="w-2/12 text-center md:text-left md:w-4/12 lg:w-6/12" wire:click="sortBy('title')"
-                                style="cursor: pointer">Categorias
+                                style="cursor: pointer">Produto
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
                             {{-- 3 --}}
-                            <th class="w-2/12 text-center hidden md:table-cell ">Produtos</th>
+                            <th class="w-2/12 text-center hidden md:table-cell ">Categoria</th>
                             {{-- 4 --}}
                             <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
                         </tr>
@@ -137,28 +139,28 @@
 
                     {{-- tabela --}}
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($products as $product)
                             <tr class=" h-12 align-middle hover:bg-gray-100">
 
                                 {{-- status --}}
                                 <td class="text-center ">
-                                    @if ($category->status)
-                                        <button wire:click="toogle({{ $category->id }})"
+                                    @if ($product->status)
+                                        <button wire:click="toogle({{ $product->id }})"
                                             class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
                                     @else
-                                        <button wire:click="toogle({{ $category->id }})"
+                                        <button wire:click="toogle({{ $product->id }})"
                                             class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200  focus:outline-none">OFF</button>
                                     @endif
                                 </td>
 
                                 {{-- title --}}
                                 <td class="text-center md:text-left">
-                                    {{ $category->title }}
+                                    {{ $product->title }}
                                 </td>
 
-                                {{-- ammount --}}
+                                {{-- cateogry --}}
                                 <td class="text-center hidden md:table-cell">
-                                    <span> {{ count($category->products) }} </span>
+                                    <span> {{ $product->category->title }} </span>
                                 </td>
 
                                 {{-- actions --}}
@@ -166,21 +168,21 @@
                                     <div class="flex justify-between gap-1">
 
                                         {{-- actions for mobile --}}
-                                        <button wire:click="showModal('actions', {{ $category->id }})"
+                                        <button wire:click="showModal('actions', {{ $product->id }})"
                                             class="md:hidden text-center p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
 
                                         {{-- actions for md or more --}}
-                                        <button wire:click="showModal('delete', {{ $category->id }})"
+                                        <button wire:click="showModal('delete', {{ $product->id }})"
                                             class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none ">Remover</button>
 
-                                        <button wire:click="showModal('edit', {{ $category->id }})"
+                                        <button wire:click="showModal('edit', {{ $product->id }})"
                                             class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Editar</button>
 
-                                        <button wire:click="showModal('actions', {{ $category->id }})"
+                                        <button wire:click="showModal('actions', {{ $product->id }})"
                                             class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
 
                                         {{-- <a href="#"
-                                        class="hidden md:block  text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none ">Ver</a> --}}
+                                                    class="hidden md:block  text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none ">Ver</a> --}}
 
                                     </div>
                                 </td>
@@ -192,6 +194,15 @@
 
             @endif
 
+
+
+
+
+
+
+
+
+
         </div> {{-- end Container --}}
     </div> {{-- end Main --}}
 
@@ -199,7 +210,7 @@
     {{-- CREATE MODAL --}}
     <x-jet-dialog-modal wire:model="modals.create">
         <x-slot name="title">
-            Nova Categoria
+            Novo Produto
         </x-slot>
 
         <x-slot name="content">
@@ -236,6 +247,20 @@
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 type="text" placeholder="Categoria">
                         </div>
+
+                        <div>
+                            <label class="block">
+                                <span class="text-gray-700">Categoria</span>
+                                <select wire:model="obj.category_id"
+                                    class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                                    <option value=""> Selecione uma Categoria </option>
+                                    @foreach ($categories as $category)
+                                        <option value={{ $category->id }}> {{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
+
                     </div>
                 </div>
 
@@ -257,10 +282,11 @@
         </x-slot>
     </x-jet-dialog-modal>
 
+
     {{-- DELETE MODAL --}}
     <x-jet-dialog-modal wire:model="modals.delete">
         <x-slot name="title">
-            Remover Categoria
+            Remover Produto
         </x-slot>
 
         <x-slot name="content">
@@ -288,6 +314,23 @@
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             type="text" placeholder="Categoria">
                     </div>
+
+
+                    <div>
+                        <label class="block">
+                            <span class="text-gray-700">Categoria</span>
+                            <select wire:model="obj.category_id" disabled
+                                class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                                <option value={{ $obj->category_id }}>{{ $obj->category->title }}</option>
+                            </select>
+                        </label>
+
+
+
+
+
+
+                    </div>
                 </div>
             </div>
 
@@ -310,7 +353,7 @@
     {{-- EDIT MODAL --}}
     <x-jet-dialog-modal wire:model="modals.edit">
         <x-slot name="title">
-            Editar Categoria
+            Editar Produto
         </x-slot>
 
         <x-slot name="content">
@@ -343,6 +386,21 @@
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             type="text" placeholder="Categoria">
                     </div>
+
+                    <div>
+                        <label class="block">
+                            <span class="text-gray-700">Categoria</span>
+                            <select wire:model.lazy="obj.category_id"
+                                class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                                
+                                @foreach ($categories as $category)
+                                    <option value={{ $category->id }} @if($category->id == $obj->category->id) selected @endif> {{ $category->title }}</option>
+                                @endforeach
+                                {{-- <option value={{ $obj->category_id }}>{{ $obj->category->title }}</option> --}}
+                            </select>
+                        </label>
+                    </div>
+
                 </div>
             </div>
 
@@ -366,7 +424,7 @@
     </x-jet-dialog-modal>
 
     {{-- OPTIONS FOR MOBILE --}}
-    <x-jet-dialog-modal wire:model="modals.actions">
+    {{-- <x-jet-dialog-modal wire:model="modals.actions">
         <x-slot name="title">
             Ações
         </x-slot>
@@ -423,6 +481,8 @@
 
         </x-slot>
 
-    </x-jet-dialog-modal>
+    </x-jet-dialog-modal> --}}
+
+</div>
 
 </div>

@@ -2,31 +2,36 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Category;
+use App\Models\Product;
+use Livewire\Component;
 use Livewire\WithPagination;
 
-class Categories extends Component
+
+class Products extends Component
 {
+
 
     use WithPagination;
 
     // Model Object
-    public Category $obj;
+    public Product $obj;
+    public $categories; // arr of categories
 
     // rules
     protected $rules = [
         'obj.title' => 'required|min:3|max:255',
         'obj.status' => '', // required to work correctly
+        'obj.category_id' => '', // required to work correctly
     ];
-    
+
     // messages for errors
     protected $messages = [
         'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
         'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
         'obj.title.max' => 'O <b> Título </b> não poter ter mais de 255 caractéres.',
     ];
-    
+
     // modals
     public $modals = [
         "create" => false,
@@ -37,7 +42,7 @@ class Categories extends Component
 
     // filters
     protected $queryString = [
-        'search'=> ['except' => '']
+        'search' => ['except' => ''],
     ];
     public $search = "";
     public $onlyActives;
@@ -62,53 +67,62 @@ class Categories extends Component
     // livewire methods
     public function mount()
     {
+         $this->categories = Category::all();
+        // $this->categories = Category::all()->where('status', "1"); // somente categorias ativas
         // initialize empty object (prevent null errors)
-        $this->obj = new Category();
+        $this->obj = new Product();
+        $this->obj->category = new Category();
+        
     }
 
     public function render()
     {
-        
-        $categories = Category::query()
-        ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
-                    return $query->where('title', "like", "%{$this->search}%");
-                })
-                ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
-                    return $query->where('status', "1");
-                })
-                ->orderBy($this->sortBy, $this->sortDirection)
-                ->paginate($this->perPage);
 
-        return view('livewire.categories', [
-            'categories' => $categories,
-            
+        $products = Product::query()
+            ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+                return $query->where('title', "like", "%{$this->search}%");
+            })
+            ->when($this->onlyActives == 1, function ($query) { // IF ONLY ACTIVES IS ON
+                return $query->where('status', "1");
+            })
+            ->with('category') // carrega todas as categorias em uma consulta, em vez de consultar toda vez.
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->perPage);
+
+        return view('livewire.products', [
+            'products' => $products,
+
         ]);
     }
 
     // navigation methods
-    public function showModal ($modal, $id = null){
+    public function showModal($modal, $id = null)
+    {
 
         $this->resetValidation();
 
-        if($id != null){
-            $this->obj = Category::find($id);
-        }else {
-            $this->obj = new Category([            
+        if ($id != null) {
+            $this->obj = Product::find($id);
+            $this->obj->category = Category::find($this->obj->category_id);
+            
+        } else {
+            $this->obj = new Product([
                 'status' => true,
                 'title' => ucfirst($this->search),
             ]);
+            $this->obj->category = new Category();
         }
-        
+
         $this->modals[$modal] = true;
 
-        // close the actions modals to show modal target 
-        if($modal != 'actions'){
-            $this->modals['actions'] = false;    
+        // close the actions modals to show modal target
+        if ($modal != 'actions') {
+            $this->modals['actions'] = false;
         }
-
     }
 
-    public function hideModal ($modal){
+    public function hideModal($modal)
+    {
         $this->modals[$modal] = false;
     }
 
@@ -116,17 +130,19 @@ class Categories extends Component
     public function create()
     {
 
+
         $this->validate();
 
-        Category::create([
+        Product::create([
             'title' => $this->obj->title,
             'status' => $this->obj->status,
+            'category_id' => $this->obj->category_id,
         ]);
 
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj['title'] . "</b> foi criada."
+            'message' => 'O Produto <b>' . $this->obj['title'] . "</b> foi criado.",
         ];
 
         session()->flash('flash', $flash);
@@ -136,26 +152,25 @@ class Categories extends Component
 
     public function toogle($id)
     {
-        $msg = "";
 
-        $category = Category::find($id);
+        $category = Product::find($id);
+
+        $msg = "";
 
         if ($category->status) {
             $category->status = false;
-            $msg = 'A Categoria <b>' . $category->title . "</b> foi desabilitada.";
+            $msg = 'O Produto <b>' . $category->title . "</b> foi desabilitado.";
         } else {
             $category->status = true;
-            $msg = 'A Categoria <b>' . $category->title . "</b> foi habilitada.";
+            $msg = 'O Produto <b>' . $category->title . "</b> foi habilitado.";
         }
 
         $category->save();
 
-        
-
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => $msg
+            'message' => $msg,
         ];
 
         session()->flash('flash', $flash);
@@ -166,15 +181,15 @@ class Categories extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj->title . "</b>  foi removida."
+            'message' => 'O Produto <b>' . $this->obj->title . "</b>  foi removido.",
         ];
 
         session()->flash('flash', $flash);
-        Category::destroy($this->obj->id);
-
+        Product::destroy($this->obj->id);
 
         $this->modals['delete'] = false;
-        $this->obj = new Category();
+        $this->obj = new Product();
+        $this->obj->category = new Category();
     }
 
     public function update()
@@ -182,21 +197,17 @@ class Categories extends Component
 
         $this->validate();
 
-
         $this->obj->save();
-        
+
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria  <b>' . $this->obj->title . "</b> foi atualizada."
+            'message' => 'O Produto  <b>' . $this->obj->title . "</b> foi atualizado.",
         ];
-        
+
         session()->flash('flash', $flash);
         $this->modals['edit'] = false;
-        $this->obj = new Category();
+        // $this->obj = new Product();ss
+        // $this->obj->category = new Category();
     }
-
-
-
-
 }

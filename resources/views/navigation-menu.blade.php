@@ -18,8 +18,8 @@
                     <x-jet-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">
                         {{ __('Categorias') }}
                     </x-jet-nav-link>   
-                    <x-jet-nav-link href="{{ route('locales.index') }}" :active="request()->routeIs('locales.index')">
-                        {{ __('Locais') }}
+                    <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')">
+                        {{ __('Produtos') }}
                     </x-jet-nav-link>   
 
                 </div>
