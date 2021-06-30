@@ -244,7 +244,7 @@
                                 Título
                             </label>
                             <input wire:model="obj.title"
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="w-full input"
                                 type="text" placeholder="Categoria">
                         </div>
 
@@ -252,7 +252,7 @@
                             <label class="block">
                                 <span class="text-gray-700">Categoria</span>
                                 <select wire:model="obj.category_id"
-                                    class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                                    class="w-full input">
                                     <option value=""> Selecione uma Categoria </option>
                                     @foreach ($categories as $category)
                                         <option value={{ $category->id }}> {{ $category->title }}</option>

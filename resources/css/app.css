@@ -1,3 +1,32 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+/* CUSTOM APP CSS - REMEBER RE-BUILD TO UPDATE  */
+
+
+/* #DIVS  */
+
+    .main {
+        @apply max-w-7xl mx-auto py-6 px-4 sm:px-4 md:px-6 lg:px-6 
+    }
+
+    .container {
+        @apply w-full bg-white rounded-lg shadow-md px-4 py-4 
+    }
+
+
+/* #INPUTS  */
+
+
+    .input{
+        @apply rounded-lg bg-gray-100 border-transparent focus:border-indigo-500 focus:bg-white focus:outline-none 
+    }
+
+    .input-disabled{
+        @apply rounded-lg bg-gray-100 border-transparent
+    }
+
+
+/* #BUTTONS  */

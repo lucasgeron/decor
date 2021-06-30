@@ -1,51 +1,16 @@
 <div>
 
-    {{-- Header --}}
-    <div class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center">
-                <!-- start -->
-                <div class="flex-1 self-center">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight inline-flex"> {{ __('Categorias') }}
-                    </h2>
-                    <button wire:click="showModal('create')"
-                        class="focus:outline-none px-3 rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">Criar</button>
-                </div>
+    {{-- page menu --}}
+    @include('layouts.partials._navigation-menu', [
+        'title' => 'Categorias'
+    ])
 
-                <!-- end -->
-                <div class="flex-1 flex-wrap w-full">
-                    <div
-                        class="flex -m-2 -p-3 max-w-sm float-right appearance-none w-full bg-gray-200 text-gray-700 border-gray-200 rounded-lg  focus:outline-none border-0 focus:ring-0 focus:ring-offset-0">
-                        @if ($search)
-                            <i class="fas fa-search my-auto ml-4 text-indigo-700"></i>
-                        @else
-                            <i class="fas fa-search my-auto ml-4"></i>
-                        @endif
-                        <input wire:model="search"
-                            class=" max-w-sm float-right appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded-lg p-2 focus:outline-none border-0 focus:ring-0 focus:ring-offset-0"
-                            type="text" placeholder=" Pesquisar">
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    {{-- notifications --}}
-    @if (session()->has('flash'))
-        <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6">
-            <div class="w-full  bg-white text-gray-700  rounded-lg shadow-md px-4 py-4">
-                <p> <span class="uppercase  text-{{ session('flash')['color'] }}-500 font-bold">
-                        {{ session('flash')['title'] }} </span> - {!! session('flash')['message'] !!}
-                </p>
-            </div>
-        </div>
-    @endif
+    {{-- flash messages --}}
+    @include('layouts.partials._flash-message')
 
     {{-- content --}}
-    <div class="max-w-7xl mx-auto pt-4 px-4 sm:px-4 md:px-6 lg:px-6 pb-4"> {{-- Main --}}
-        <div class="w-full bg-white rounded-lg shadow-md px-4 py-4 "> {{-- Container --}}
+    <div class="main"> {{-- Main --}}
+        <div class="container"> {{-- Container --}}
 
             {{-- barra superior da tabela --}}
             <div class="flex">
@@ -124,7 +89,7 @@
                                     @include('layouts.partials._sort-icon',['field'=>'status']) @endif
                             </th>
                             {{-- 2 --}}
-                            <th class="w-2/12 text-center md:text-left md:w-4/12 lg:w-6/12" wire:click="sortBy('title')"
+                            <th class="w-2/12 text-center md:text-left md:w-4/12 md:pl-2 lg:w-6/12" wire:click="sortBy('title')"
                                 style="cursor: pointer">Categorias
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
@@ -152,7 +117,7 @@
                                 </td>
 
                                 {{-- title --}}
-                                <td class="text-center md:text-left">
+                                <td class="text-center md:text-left md:pl-2 ">
                                     {{ $category->title }}
                                 </td>
 
@@ -195,6 +160,7 @@
         </div> {{-- end Container --}}
     </div> {{-- end Main --}}
 
+    {{-- modals --}}
 
     {{-- CREATE MODAL --}}
     <x-jet-dialog-modal wire:model="modals.create">
@@ -233,7 +199,7 @@
                                 Título
                             </label>
                             <input wire:model="obj.title"
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="w-full input"
                                 type="text" placeholder="Categoria">
                         </div>
                     </div>
@@ -285,7 +251,7 @@
                             Título
                         </label>
                         <input wire:model="obj.title" disabled
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class=" w-full input-disabled"
                             type="text" placeholder="Categoria">
                     </div>
                 </div>
