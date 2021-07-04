@@ -109,10 +109,10 @@
                                 <td class="text-center ">
                                     @if ($category->status)
                                         <button wire:click="toogle({{ $category->id }})"
-                                            class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
+                                            class="btn-status-on focus:shadow-outline">ON</button>
                                     @else
                                         <button wire:click="toogle({{ $category->id }})"
-                                            class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200  focus:outline-none">OFF</button>
+                                            class="btn-status-off focus:shadow-outline">OFF</button>
                                     @endif
                                 </td>
 
@@ -132,20 +132,17 @@
 
                                         {{-- actions for mobile --}}
                                         <button wire:click="showModal('actions', {{ $category->id }})"
-                                            class="md:hidden text-center p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
+                                            class="md:hidden btn-table-mobile-indigo">Ver</button>
 
                                         {{-- actions for md or more --}}
                                         <button wire:click="showModal('delete', {{ $category->id }})"
-                                            class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none ">Remover</button>
+                                            class="hidden md:block btn-table-red">Remover</button>
 
                                         <button wire:click="showModal('edit', {{ $category->id }})"
-                                            class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Editar</button>
+                                            class="hidden md:block btn-table-indigo">Editar</button>
 
                                         <button wire:click="showModal('actions', {{ $category->id }})"
-                                            class="hidden md:block text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none">Ver</button>
-
-                                        {{-- <a href="#"
-                                        class="hidden md:block  text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none ">Ver</a> --}}
+                                            class="hidden md:block btn-table-indigo">Ver</button>
 
                                     </div>
                                 </td>
@@ -161,234 +158,7 @@
     </div> {{-- end Main --}}
 
     {{-- modals --}}
+    @include('layouts.partials.categories._modals')
 
-    {{-- CREATE MODAL --}}
-    <x-jet-dialog-modal wire:model="modals.create">
-        <x-slot name="title">
-            Nova Categoria
-        </x-slot>
-
-        <x-slot name="content">
-            <form method="post" wire:submit.prevent="create" autocomplete="off" class="w-full ">
-
-                @error('obj.title')
-                    <div class="p-2 bg-red-100 rounded-lg w-full mt-2">
-                        <p class=" text-sm text-red-500 "> {!! $message !!} </p>
-                    </div>
-                @enderror
-
-                <div class="flex flex-wrap -mx-3">
-                    <div class=" w-full px-3 py-3 space-y-2">
-                        <div>
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
-                                for="titler">
-                                Status
-                            </label>
-                            @if ($obj->status)
-
-                                <button wire:click.prevent="$set('obj.status', false)"
-                                    class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
-                            @else
-                                <button wire:click.prevent="$set('obj.status', true)"
-                                    class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200 focus:outline-none">OFF</button>
-                            @endif
-                        </div>
-                        <div>
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="titler">
-                                Título
-                            </label>
-                            <input wire:model="obj.title"
-                                class="w-full input"
-                                type="text" placeholder="Categoria">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-end  w-full py-2 ">
-                    <button wire:click="hideModal('create')"
-                        class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
-                        type="button">
-                        Cancelar
-                    </button>
-
-                    <button
-                        class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg"
-                        type="submit">
-                        Salvar
-                    </button>
-                </div>
-
-            </form>
-        </x-slot>
-    </x-jet-dialog-modal>
-
-    {{-- DELETE MODAL --}}
-    <x-jet-dialog-modal wire:model="modals.delete">
-        <x-slot name="title">
-            Remover Categoria
-        </x-slot>
-
-        <x-slot name="content">
-
-            <div class="flex flex-wrap -mx-3">
-                <div class=" w-full px-3 py-3 space-y-2">
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 " for="titler">
-                            Status
-                        </label>
-                        @if ($obj->status)
-
-                            <button disabled
-                                class="cursor-default px-3 rounded-lg bg-green-100 border border-green-300 text-green-500  focus:outline-none">ON</button>
-                        @else
-                            <button disabled
-                                class="cursor-default px-2 rounded-lg bg-red-100 border border-red-300 text-red-500  focus:outline-none">OFF</button>
-                        @endif
-                    </div>
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="titler">
-                            Título
-                        </label>
-                        <input wire:model="obj.title" disabled
-                            class=" w-full input-disabled"
-                            type="text" placeholder="Categoria">
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-end  w-full py-2 ">
-                <button wire:click="hideModal('delete')"
-                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
-                    type="button">
-                    Cancelar
-                </button>
-
-                <button wire:click="delete()"
-                    class=" flex-1 max-w-xs bg-red-500 hover:bg-red-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg">Remover</button>
-
-            </div>
-
-            </form>
-        </x-slot>
-    </x-jet-dialog-modal>
-
-    {{-- EDIT MODAL --}}
-    <x-jet-dialog-modal wire:model="modals.edit">
-        <x-slot name="title">
-            Editar Categoria
-        </x-slot>
-
-        <x-slot name="content">
-
-            @error('obj.title')
-                <div class="p-2 bg-red-100 rounded-lg w-full mt-2">
-                    <p class=" text-sm text-red-500 "> {!! $message !!} </p>
-                </div>
-            @enderror
-
-            <div class="flex flex-wrap -mx-3">
-                <div class=" w-full px-3 py-3 space-y-2">
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 " for="titler">
-                            Status
-                        </label>
-                        @if ($obj->status)
-                            <button wire:click.prevent="$set('obj.status', false)"
-                                class="px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none">ON</button>
-                        @else
-                            <button wire:click.prevent="$set('obj.status', true)"
-                                class="px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200 focus:outline-none">OFF</button>
-                        @endif
-                    </div>
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="titler">
-                            Título
-                        </label>
-                        <input wire:model="obj.title"
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            type="text" placeholder="Categoria">
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="flex justify-end  w-full py-2 ">
-                <button wire:click="hideModal('edit')"
-                    class="flex-1 max-w-xs bg-gray-100 hover:bg-gray-500 focus:shadow-outline focus:outline-none text-gray-700 hover:text-white p-2 mr-2 rounded-lg"
-                    type="button">
-                    Cancelar
-                </button>
-
-                <button wire:click="update({{ $obj->id }})"
-                    class=" flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white  p-2 rounded-lg"
-                    type="submit">
-                    Salvar
-                </button>
-            </div>
-
-        </x-slot>
-
-    </x-jet-dialog-modal>
-
-    {{-- OPTIONS FOR MOBILE --}}
-    <x-jet-dialog-modal wire:model="modals.actions">
-        <x-slot name="title">
-            Ações
-        </x-slot>
-
-        <x-slot name="content">
-
-            <div class="flex flex-wrap -mx-3">
-                <div class=" w-full px-3 py-3 space-y-2">
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 " for="titler">
-                            Status
-                        </label>
-                        @if ($obj->status)
-
-                            <button disabled
-                                class="cursor-default px-3 rounded-lg bg-green-100 border border-green-300 text-green-500  focus:outline-none">ON</button>
-                        @else
-                            <button disabled
-                                class="cursor-default px-2 rounded-lg bg-red-100 border border-red-300 text-red-500  focus:outline-none">OFF</button>
-                        @endif
-                    </div>
-                    <div>
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="titler">
-                            Título
-                        </label>
-                        <input wire:model="obj.title" disabled
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-lg p-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            type="text" placeholder="Categoria">
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mt-4 flex flex-wrap -mx-3">
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="titler">
-                        Selecione para continuar
-                    </label>
-                </div>
-            </div>
-
-            <div class=" justify-end gap-y-2 w-full py-2 ">
-                <button wire:click="showModal('delete', {{ $obj->id }})"
-                    class="mt-2 w-full  text-center  bg-red-500 hover:bg-red-700 focus:shadow-outline text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Remover</button>
-
-                <button wire:click="showModal('edit', {{ $obj->id }})"
-                    class="mt-2 w-full  text-center  bg-indigo-500 hover:bg-indigo-700 focus:shadow-outline text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Editar</button>
-
-                <button wire:click="hideModal('actions')"
-                    class="mt-2 w-full  text-center  bg-gray-100 hover:bg-gray-500 focus:shadow-outline text-gray-700 hover:text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Cancelar</button>
-
-            </div>
-
-
-        </x-slot>
-
-    </x-jet-dialog-modal>
 
 </div>

@@ -21,7 +21,7 @@ use App\Http\Livewire\{
 */
 
 Route::get('/teste', Tests::class)->middleware(['auth:sanctum', 'verified'])->name('tests.index');
-Route::get('/estoques', Locales::class)->middleware(['auth:sanctum', 'verified'])->name('locales.index');
+Route::get('/locais', Locales::class)->middleware(['auth:sanctum', 'verified'])->name('locales.index');
 Route::get('/categorias', Categories::class)->middleware(['auth:sanctum', 'verified'])->name('categories.index');
 Route::get('/produtos', Products::class)->middleware(['auth:sanctum', 'verified'])->name('products.index');
 

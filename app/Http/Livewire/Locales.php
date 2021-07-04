@@ -3,9 +3,9 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Category;
-use Livewire\Request;
+use App\Models\Local;
 use Livewire\WithPagination;
+use Manny;
 
 class Locales extends Component
 {
@@ -13,21 +13,27 @@ class Locales extends Component
     use WithPagination;
 
     // Model Object
-    public Category $obj;
+    public Local $obj;
 
     // rules
     protected $rules = [
         'obj.title' => 'required|min:3|max:255',
         'obj.status' => '', // required to work correctly
+        'obj.address' => '', // required to work correctly
+        'obj.number' => '', // required to work correctly
+        'obj.district' => '', // required to work correctly
+        'obj.city' => '', // required to work correctly
+        'obj.cep' => '', // required to work correctly
+        'obj.phone' => '', // required to work correctly
     ];
-    
+
     // messages for errors
     protected $messages = [
         'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
         'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
         'obj.title.max' => 'O <b> Título </b> não poter ter mais de 255 caractéres.',
     ];
-    
+
     // modals
     public $modals = [
         "create" => false,
@@ -38,7 +44,7 @@ class Locales extends Component
 
     // filters
     protected $queryString = [
-        'search'=> ['except' => '']
+        'search' => ['except' => '']
     ];
     public $search = "";
     public $onlyActives;
@@ -64,52 +70,53 @@ class Locales extends Component
     public function mount()
     {
         // initialize empty object (prevent null errors)
-        $this->obj = new Category();
+        $this->obj = new Local();
     }
 
     public function render()
     {
-        
-        $categories = Category::query()
-        ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
-                    return $query->where('title', "like", "%{$this->search}%");
-                })
-                ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
-                    return $query->where('status', "1");
-                })
-                ->orderBy($this->sortBy, $this->sortDirection)
-                ->paginate($this->perPage);
+
+        $locales = Local::query()
+            ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+                return $query->where('title', "like", "%{$this->search}%");
+            })
+            ->when($this->onlyActives == 1, function ($query) { // IF ONLY ACTIVES IS ON
+                return $query->where('status', "1");
+            })
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->perPage);
 
         return view('livewire.locales', [
-            'categories' => $categories,
-            
+            'locales' => $locales,
+
         ]);
     }
 
     // navigation methods
-    public function showModal ($modal, $id = null){
+    public function showModal($modal, $id = null)
+    {
 
         $this->resetValidation();
 
-        if($id != null){
-            $this->obj = Category::find($id);
-        }else {
-            $this->obj = new Category([            
+        if ($id != null) {
+            $this->obj = Local::find($id);
+        } else {
+            $this->obj = new Local([
                 'status' => true,
                 'title' => ucfirst($this->search),
             ]);
         }
-        
+
         $this->modals[$modal] = true;
 
         // close the actions modals to show modal target 
-        if($modal != 'actions'){
-            $this->modals['actions'] = false;    
+        if ($modal != 'actions') {
+            $this->modals['actions'] = false;
         }
-
     }
 
-    public function hideModal ($modal){
+    public function hideModal($modal)
+    {
         $this->modals[$modal] = false;
     }
 
@@ -119,41 +126,45 @@ class Locales extends Component
 
         $this->validate();
 
-        Category::create([
-            'title' => $this->obj->title,
+        Local::create([
             'status' => $this->obj->status,
+            'title' => $this->obj->title,
+            'address' => $this->obj->address,
+            'number' => $this->obj->number,
+            'district' => $this->obj->district,
+            'city' => $this->obj->city,
+            'phone' => $this->obj->phone,
+            'cep' => $this->obj->cep,
         ]);
 
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj['title'] . "</b> foi criada."
+            'message' => 'O Local <b>' . $this->obj['title'] . "</b> foi criado."
         ];
 
         session()->flash('flash', $flash);
         $this->modals['create'] = false;
+        $this->search = "";
     }
 
     public function toogle($id)
     {
+        $msg = "";
 
-        $category = Category::find($id);
+        $local = Local::find($id);
 
-
-        $msg;
-        $color;
-
-        if ($category->status) {
-            $category->status = false;
-            $msg = 'A Categoria <b>' . $category->title . "</b> foi desabilitada.";
+        if ($local->status) {
+            $local->status = false;
+            $msg = 'O local <b>' . $local->title . "</b> foi desabilitado.";
         } else {
-            $category->status = true;
-            $msg = 'A Categoria <b>' . $category->title . "</b> foi habilitada.";
+            $local->status = true;
+            $msg = 'O local <b>' . $local->title . "</b> foi habilitado.";
         }
 
-        $category->save();
+        $local->save();
 
-        
+
 
         $flash = [
             'color' => 'indigo',
@@ -169,15 +180,15 @@ class Locales extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria <b>' . $this->obj->title . "</b>  foi removida."
+            'message' => 'O local <b>' . $this->obj->title . "</b>  foi removido."
         ];
 
         session()->flash('flash', $flash);
-        Category::destroy($this->obj->id);
+        Local::destroy($this->obj->id);
 
 
         $this->modals['delete'] = false;
-        $this->obj = new Category();
+        $this->obj = new Local();
     }
 
     public function update()
@@ -187,17 +198,28 @@ class Locales extends Component
 
 
         $this->obj->save();
-        
+
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'A Categoria  <b>' . $this->obj->title . "</b> foi atualizada."
+            'message' => 'O local  <b>' . $this->obj->title . "</b> foi atualizado."
         ];
-        
+
         session()->flash('flash', $flash);
         $this->modals['edit'] = false;
-        $this->obj = new Category();
+        $this->obj = new Local();
     }
 
 
+
+
+    public function formatPhone()
+    {
+        $this->obj->phone = Manny::mask($this->obj->phone, "(11) 1 1111-1111");   
+    }
+
+    public function formatCep()
+    {
+        $this->obj->cep = Manny::mask($this->obj->cep, "11111-111");   
+    }
 }
