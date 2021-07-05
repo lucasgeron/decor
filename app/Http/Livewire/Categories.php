@@ -15,16 +15,20 @@ class Categories extends Component
     public Category $obj;
 
     // rules
-    protected $rules = [
-        'obj.title' => 'required|min:3|max:255',
-        'obj.status' => '', // required to work correctly
-    ];
+    public function rules() {
+        return [
+            'obj.title' => 'required|min:3|max:255|unique:categories,title,'.$this->obj->id,
+            'obj.status' => '', // required to work correctly
+          
+        ];
+    }
     
     // messages for errors
     protected $messages = [
         'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
+        'obj.title.unique' => 'Já existe uma <b> Categoria </b> com este nome.',
         'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
-        'obj.title.max' => 'O <b> Título </b> não poter ter mais de 255 caractéres.',
+        'obj.title.max' => 'O <b> Título </b> não pode ter mais de 255 caractéres.',
     ];
     
     // modals

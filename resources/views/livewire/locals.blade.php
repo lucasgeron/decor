@@ -89,13 +89,18 @@
                                     @include('layouts.partials._sort-icon',['field'=>'status']) @endif
                             </th>
                             {{-- 2 --}}
-                            <th class="w-2/12 text-center md:text-left md:w-4/12 md:pl-2 lg:w-6/12" wire:click="sortBy('title')"
+                            <th class="w-2/12 text-center md:text-left md:w-2/12 md:pl-2 lg:w-4/12" wire:click="sortBy('title')"
                                 style="cursor: pointer">Locais
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
                             {{-- 3 --}}
-                            <th class="w-2/12 text-center hidden md:table-cell ">Detalhes</th>
+                            <th class="w-6/12 text-left hidden md:table-cell ">Endereço</th>
+
+                           
                             {{-- 4 --}}
+                            <th class="w-2/12 text-left hidden md:table-cell ">Telefones</th>
+
+                            {{-- 5 --}}
                             <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
                         </tr>
                     </thead>
@@ -107,23 +112,25 @@
 
                                 {{-- status --}}
                                 <td class="text-center ">
-                                    @if ($local->status)
-                                        <button wire:click="toogle({{ $local->id }})"
-                                            class="btn-status-on focus:shadow-outline">ON</button>
-                                    @else
-                                        <button wire:click="toogle({{ $local->id }})"
-                                            class="btn-status-off focus:shadow-outline">OFF</button>
-                                    @endif
+                                    <input type="checkbox" class="checkbox h-6 w-6"  @if ($local->status == 1) checked @endif disabled>
                                 </td>
 
                                 {{-- title --}}
                                 <td class="text-center md:text-left md:pl-2 ">
-                                    {{ $local->title }} - {{ $local->phone }}
+                                    {{ $local->title }}
                                 </td>
 
-                                {{-- ammount --}}
-                                <td class="text-center hidden md:table-cell">
-                                    <span> {{ $local->address }}, {{ $local->number }}, {{ $local->district }}, {{ $local->city }} - CEP: {{ $local->cep }}</span>
+                                {{-- address --}}
+                                <td class="text-left text-xs hidden md:table-cell">
+                                    <span> {{ $local->address }}, {{ $local->number }}, {{ $local->district }}.<br> {{ $local->city }} - CEP: {{substr($local->cep,0,2)}}.{{substr($local->cep,2,3)}}-{{substr($local->cep,5,3)}} </span>
+                                </td>
+
+                               
+
+                                {{-- phones --}}
+                                <td class="text-left text-xs hidden md:table-cell">
+                                    <span> ({{substr($local->phone1,0,2)}}) {{substr($local->phone1,2,4)}}-{{substr($local->phone1,6,4)}}</span> <br>
+                                    <span> <a href="https://api.whatsapp.com/send?phone=55{{$local->phone2}}" target="_blank" class="hover:text-indigo-700"> ({{substr($local->phone2,0,2)}}) {{substr($local->phone2,2,1)}} {{substr($local->phone2,3,4)}}-{{substr($local->phone2,6,4)}} </a></span> 
                                 </td>
 
                                 {{-- actions --}}
@@ -158,6 +165,6 @@
     </div> {{-- end Main --}}
 
     {{-- modals --}}
-    @include('layouts.partials.locales._modals')
+    @include('layouts.partials.locals._modals')
 
 </div>

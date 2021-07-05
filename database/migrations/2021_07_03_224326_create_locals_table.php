@@ -15,14 +15,15 @@ class CreateLocalsTable extends Migration
     {
         Schema::create('locals', function (Blueprint $table) {
             $table->id();
-            $table->string('title', '110');
-            $table->string('address', '110');
-            $table->string('number', '110');
-            $table->string('city', '110');
-            $table->string('district', '110');
-            $table->string('phone', '110');
-            $table->string('cep', '110');
             $table->boolean('status')->default(0);
+            $table->string('title', '110')->unique();
+            $table->string('address', '255')->nullable();
+            $table->integer('number')->nullable();
+            $table->string('district', '255')->nullable();
+            $table->string('city', '255')->nullable();
+            $table->string('cep', '8')->nullable();
+            $table->string('phone1', '10')->nullable();
+            $table->string('phone2', '11')->nullable();
             $table->timestamps();
         });
     }

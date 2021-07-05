@@ -21,43 +21,48 @@
     .input{
         @apply rounded-lg bg-gray-100 border-transparent focus:border-indigo-500 focus:bg-white focus:outline-none 
     }
-
+    
     .input-disabled{
         @apply rounded-lg bg-gray-100 border-transparent
     }
+    
+    .checkbox{
+        @apply transition-all duration-200 ease-in-out border-transparent  bg-gray-100 rounded-lg focus:outline-none outline-none appearance-none text-indigo-700 
+    }
+
+
 
 /* #BUTTONS  */
 
 
     .btn-modal-indigo {
-        @apply  flex-1 max-w-xs bg-indigo-500 hover:bg-indigo-700  focus:outline-none text-white  p-2 rounded-lg
+        @apply  flex-1 max-w-xs uppercase tracking-wide text-xs h-10 font-bold bg-indigo-500 hover:bg-indigo-700  focus:outline-none text-white  p-2 rounded-lg
     }
     .btn-modal-red {
-        @apply  flex-1 max-w-xs bg-red-500 hover:bg-red-700  focus:outline-none text-white  p-2 rounded-lg
+        @apply  flex-1 max-w-xs uppercase tracking-wide text-xs h-10 font-bold bg-red-500 hover:bg-red-700  focus:outline-none text-white  p-2 rounded-lg
     }
     .btn-modal-gray {
-        @apply  flex-1 max-w-xs bg-gray-100 hover:bg-gray-500  focus:outline-none text-gray-700 hover:text-white p-2  rounded-lg
+        @apply  flex-1 max-w-xs uppercase tracking-wide text-xs h-10 font-bold  bg-gray-100 hover:bg-gray-500  focus:outline-none text-gray-700 hover:text-white p-2  rounded-lg
     }
 
-    .btn-status-on {
-        @apply  px-3 rounded-lg bg-green-100 border border-green-300 text-green-500 hover:bg-green-200 focus:outline-none
-    }
-
-    .btn-status-off {
-        @apply  px-2 rounded-lg bg-red-100 border border-red-300 text-red-500 hover:bg-red-200  focus:outline-none
-    }
+    
+    
 
     .btn-table-mobile-indigo {
-        @apply  text-center p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
+        @apply  text-center h-8 p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
     }
 
     .btn-table-indigo {
-        @apply text-center p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
+        @apply text-center h-8 p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
     }
 
     .btn-table-red {
-        @apply text-center p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none
+        @apply text-center h-8 p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none
     }
 
-/* #CARDS  */
+/* #LISTS  */
 
+    li span {
+        position: relative;
+        left: -10px;
+    }

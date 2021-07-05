@@ -9,7 +9,7 @@ class Local extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'status', 'address', 'number', 'city', 'district', 'phone', 'cep'];
+    protected $fillable = ['status', 'title',  'address', 'number', 'district', 'cep', 'city', 'phone1', 'phone2'];
 
 
 }

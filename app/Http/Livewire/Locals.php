@@ -7,7 +7,7 @@ use App\Models\Local;
 use Livewire\WithPagination;
 use Manny;
 
-class Locales extends Component
+class Locals extends Component
 {
 
     use WithPagination;
@@ -17,22 +17,52 @@ class Locales extends Component
 
     // rules
     protected $rules = [
+        // every $obj attr must have a rule. required to work correctly
+        'obj.status' => '',
         'obj.title' => 'required|min:3|max:255',
-        'obj.status' => '', // required to work correctly
-        'obj.address' => '', // required to work correctly
-        'obj.number' => '', // required to work correctly
-        'obj.district' => '', // required to work correctly
-        'obj.city' => '', // required to work correctly
-        'obj.cep' => '', // required to work correctly
-        'obj.phone' => '', // required to work correctly
+        'obj.address' => 'max:255',
+        'obj.number' => '',
+        'obj.district' => 'max:255',
+        'obj.city' => 'required|max:255',
+        'obj.cep' => 'min:10|max:10',
+        'obj.phone1' => '',
+        'obj.phone2' => '',
     ];
 
     // messages for errors
     protected $messages = [
         'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
+        'obj.city.required' => 'A <b> Cidade </b> não pode ser vazia.',
         'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
-        'obj.title.max' => 'O <b> Título </b> não poter ter mais de 255 caractéres.',
+        'obj.title.max' => 'O <b> Título </b> não pode ter mais de 255 caractéres.',
+        'obj.address.max' => 'O <b> Endereço </b> não pode ter mais de 255 caractéres.',
+        'obj.district.max' => 'O <b> Bairro </b> não pode ter mais de 255 caractéres.',
+        'obj.city.max' => 'A <b> Cidade </b> não pode ter mais de 255 caractéres.',
+        'obj.cep.min' => 'O <b> CEP </b> informado não é válido.',
+        'obj.cep.max' => 'O <b> CEP </b> não pode ter mais de 8 caractéres.',
     ];
+
+
+    // Manny Masks
+    public function updated($field)
+    {
+        switch ($field) {
+            case 'obj.cep':
+                $this->obj->cep = Manny::mask($this->obj->cep, "11.111-111");
+                $this->obj->cep >= 0 ?  $this->obj->cep : $this->obj->cep = "";
+                break;
+
+            case 'obj.phone1':
+                $this->obj->phone1 = Manny::mask($this->obj->phone1, "(11) 1111-1111");
+                strlen($this->obj->phone1) <= 1 ? $this->obj->phone1 = "" :  $this->obj->phone1;
+                break;
+
+            case 'obj.phone2':
+                $this->obj->phone2 = Manny::mask($this->obj->phone2, "(11) 1 1111-1111");
+                strlen($this->obj->phone2) <= 1 ? $this->obj->phone2 = "" :  $this->obj->phone2;
+                break;
+        }
+    }
 
     // modals
     public $modals = [
@@ -86,7 +116,7 @@ class Locales extends Component
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.locales', [
+        return view('livewire.locals', [
             'locales' => $locales,
 
         ]);
@@ -104,6 +134,7 @@ class Locales extends Component
             $this->obj = new Local([
                 'status' => true,
                 'title' => ucfirst($this->search),
+                'city' => 'Guarapuava - PR'
             ]);
         }
 
@@ -133,8 +164,9 @@ class Locales extends Component
             'number' => $this->obj->number,
             'district' => $this->obj->district,
             'city' => $this->obj->city,
-            'phone' => $this->obj->phone,
-            'cep' => $this->obj->cep,
+            'cep' => preg_replace('/[^0-9]/', '', $this->obj->cep),
+            'phone1' => preg_replace('/[^0-9]/', '', $this->obj->phone1),
+            'phone2' => preg_replace('/[^0-9]/', '', $this->obj->phone2),
         ]);
 
         $flash = [
@@ -208,18 +240,5 @@ class Locales extends Component
         session()->flash('flash', $flash);
         $this->modals['edit'] = false;
         $this->obj = new Local();
-    }
-
-
-
-
-    public function formatPhone()
-    {
-        $this->obj->phone = Manny::mask($this->obj->phone, "(11) 1 1111-1111");   
-    }
-
-    public function formatCep()
-    {
-        $this->obj->cep = Manny::mask($this->obj->cep, "11111-111");   
     }
 }

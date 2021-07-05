@@ -89,7 +89,7 @@
                                     @include('layouts.partials._sort-icon',['field'=>'status']) @endif
                             </th>
                             {{-- 2 --}}
-                            <th class="w-2/12 text-center md:text-left md:w-4/12 md:pl-2 lg:w-6/12" wire:click="sortBy('title')"
+                            <th class="w-2/12 text-left md:w-4/12 md:pl-2 lg:w-6/12" wire:click="sortBy('title')"
                                 style="cursor: pointer">Categorias
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
@@ -103,21 +103,15 @@
                     {{-- tabela --}}
                     <tbody>
                         @foreach ($categories as $category)
-                            <tr class=" h-12 align-middle hover:bg-gray-100">
+                            <tr class=" h-12 align-middle hover:bg-gray-50">
 
                                 {{-- status --}}
                                 <td class="text-center ">
-                                    @if ($category->status)
-                                        <button wire:click="toogle({{ $category->id }})"
-                                            class="btn-status-on focus:shadow-outline">ON</button>
-                                    @else
-                                        <button wire:click="toogle({{ $category->id }})"
-                                            class="btn-status-off focus:shadow-outline">OFF</button>
-                                    @endif
+                                    <input type="checkbox" class="checkbox h-6 w-6"  @if ($category->status == 1) checked @endif disabled>
                                 </td>
 
                                 {{-- title --}}
-                                <td class="text-center md:text-left md:pl-2 ">
+                                <td class="text-left md:pl-2 ">
                                     {{ $category->title }}
                                 </td>
 

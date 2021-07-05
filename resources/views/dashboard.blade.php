@@ -30,13 +30,7 @@
                     </div>
                  </a>
                 
-                {{-- card with icon --}}
-                <a class="h-32   py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-100 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="{{ route('locales.index')}}">                
-                    <div class="grid">
-                        <i class="fa-warehouse hidden md:block fa-4x mb-4 fas "></i>
-                        <p class="py-6 sm:py-6 md:py-0 uppercase tracking-wide font-bold ">  Locais </p>
-                    </div>
-                 </a>
+               
 
                 {{-- card with icon --}}
                 <a class="h-32   py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-100 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="{{ route('products.index')}}">                
@@ -55,6 +49,14 @@
                      </div>
                   </a>
                 @endfor
+
+                 {{-- card with icon --}}
+                 <a class="h-32   py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-100 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="{{ route('locals.index')}}">                
+                    <div class="grid">
+                        <i class="fa-warehouse hidden md:block fa-4x mb-4 fas "></i>
+                        <p class="py-6 sm:py-6 md:py-0 uppercase tracking-wide font-bold ">  Locais </p>
+                    </div>
+                 </a>
 
                  {{-- card with icon --}}
                  <a class="h-32   py-7 md:h-40 lg:h-52 lg:py-18 w-full rounded-lg text-center text-lg text-gray-700 bg-gray-100 lg:py-12 hover:bg-indigo-500 hover:shadow-md hover:text-white" href="{{ route('tests.index')}}">                
