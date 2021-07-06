@@ -3,23 +3,23 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Local;
+use App\Models\Client;
+use App\Http\Controllers\Cities;
 use Livewire\WithPagination;
 use Manny;
 
-class Locals extends Component
+class Clients extends Component
 {
 
     use WithPagination;
 
     // Model Object
-    public Local $obj;
+    public Client $obj;
 
     // rules
     protected $rules = [
         // every $obj attr must have a rule. required to work correctly
-        'obj.status' => '',
-        'obj.title' => 'required|min:3|max:255',
+        'obj.name' => 'required|min:3|max:255',
         'obj.address' => 'max:255',
         'obj.number' => '',
         'obj.district' => 'max:255',
@@ -31,7 +31,7 @@ class Locals extends Component
 
     // messages for errors
     protected $messages = [
-        'obj.title.required' => 'O <b> Título </b> não pode ser vazio.',
+        'obj.name.required' => 'O <b> Título </b> não pode ser vazio.',
         'obj.city.required' => 'A <b> Cidade </b> não pode ser vazia.',
         'obj.title.min' => 'O <b> Título </b> precisa ter pelo menos 3 caractéres.',
         'obj.title.max' => 'O <b> Título </b> não pode ter mais de 255 caractéres.',
@@ -87,7 +87,7 @@ class Locals extends Component
     public $onlyActives;
 
     // database params
-    public $sortBy = 'title';
+    public $sortBy = 'name';
     public $sortDirection = 'asc';
     public $perPage = 10;
 
@@ -107,24 +107,22 @@ class Locals extends Component
     public function mount()
     {
         // initialize empty object (prevent null errors)
-        $this->obj = new Local();
+        $this->obj = new Client();
     }
 
     public function render()
     {
-            
-        $locals = Local::query()
+       
+        $clients = Client::query()
             ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
-                return $query->where('title', "like", "%{$this->search}%");
-            })
-            ->when($this->onlyActives == 1, function ($query) { // IF ONLY ACTIVES IS ON
-                return $query->where('status', "1");
+                return $query->where('name', "like", "%{$this->search}%");
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.locals', [
-            'locals' => $locals,
+        return view('livewire.clients', [
+            'clients' => $clients,
+            'cities' =>  Cities::getCities(),
         ]);
     }
 
@@ -135,14 +133,13 @@ class Locals extends Component
         $this->resetValidation();
 
         if ($id != null) {
-            $this->obj = Local::find($id);
+            $this->obj = Client::find($id);
             $this->obj->cep = Manny::mask($this->obj->cep, "11.111-111");
             $this->obj->phone1 = Manny::mask($this->obj->phone1, "(11) 1111-1111");
             $this->obj->phone2 = Manny::mask($this->obj->phone2, "(11) 1 1111-1111");
         } else {
-            $this->obj = new Local([
-                'status' => true,
-                'title' => ucfirst($this->search),
+            $this->obj = new Client([
+                'name' => ucfirst($this->search),
                 'city' => 'Guarapuava - PR'
             ]);
         }
@@ -166,9 +163,8 @@ class Locals extends Component
 
         $this->validate();
 
-        Local::create([
-            'status' => $this->obj->status,
-            'title' => $this->obj->title,
+        Client::create([
+            'name' => $this->obj->name,
             'address' => $this->obj->address,
             'number' => $this->obj->number,
             'district' => $this->obj->district,
@@ -181,7 +177,7 @@ class Locals extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'O Local <b>' . $this->obj['title'] . "</b> foi criado."
+            'message' => 'O Cliente <b>' . $this->obj['name'] . "</b> foi criado."
         ];
 
         session()->flash('flash', $flash);
@@ -194,15 +190,15 @@ class Locals extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'O local <b>' . $this->obj->title . "</b>  foi removido."
+            'message' => 'O Cliente <b>' . $this->obj->title . "</b>  foi removido."
         ];
 
         session()->flash('flash', $flash);
-        Local::destroy($this->obj->id);
+        Client::destroy($this->obj->id);
 
 
         $this->modals['delete'] = false;
-        $this->obj = new Local();
+        $this->obj = new Client();
     }
 
     public function update()
@@ -218,11 +214,11 @@ class Locals extends Component
         $flash = [
             'color' => 'indigo',
             'title' => "Operação Realizada",
-            'message' => 'O local  <b>' . $this->obj->title . "</b> foi atualizado."
+            'message' => 'O Cliente  <b>' . $this->obj->title . "</b> foi atualizado."
         ];
 
         session()->flash('flash', $flash);
         $this->modals['edit'] = false;
-        $this->obj = new Local();
+        $this->obj = new Client();
     }
 }

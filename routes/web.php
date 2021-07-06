@@ -6,6 +6,8 @@ use App\Http\Livewire\{
     Categories,
     Locals,
     Products, 
+    Clients,
+    Orders,
     Tests
 };
 
@@ -23,6 +25,8 @@ use App\Http\Livewire\{
 Route::get('/teste', Tests::class)->middleware(['auth:sanctum', 'verified'])->name('tests.index');
 Route::get('/locais', Locals::class)->middleware(['auth:sanctum', 'verified'])->name('locals.index');
 Route::get('/categorias', Categories::class)->middleware(['auth:sanctum', 'verified'])->name('categories.index');
+Route::get('/clientes', Clients::class)->middleware(['auth:sanctum', 'verified'])->name('clients.index');
+Route::get('/pedidos', Clients::class)->middleware(['auth:sanctum', 'verified'])->name('orders.index');
 Route::get('/produtos', Products::class)->middleware(['auth:sanctum', 'verified'])->name('products.index');
 
 Route::get('/', function () {

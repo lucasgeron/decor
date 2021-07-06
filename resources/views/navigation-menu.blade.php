@@ -15,12 +15,22 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('clients.index') }}" :active="request()->routeIs('clients.index')">
+                        {{ __('Clientes') }}
+                    </x-jet-nav-link>   
                     <x-jet-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">
                         {{ __('Categorias') }}
                     </x-jet-nav-link>   
                     <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')">
                         {{ __('Produtos') }}
                     </x-jet-nav-link>   
+                    <x-jet-nav-link href="{{ route('orders.index') }}" :active="request()->routeIs('orders.index')">
+                        {{ __('Pedidos') }}
+                    </x-jet-nav-link>   
+                    <x-jet-nav-link href="{{ route('locals.index') }}" :active="request()->routeIs('locals.index')">
+                        {{ __('Locais') }}
+                    </x-jet-nav-link>   
+                    
 
                 </div>
             </div>

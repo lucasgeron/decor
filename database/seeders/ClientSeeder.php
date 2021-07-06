@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Client;
 
-class DatabaseTesterSeeder extends Seeder
+class ClientSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,10 +14,6 @@ class DatabaseTesterSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            CategorySeeder::class,
-            LocalSeeder::class,
-            ClientSeeder::class,
-        ]);
+        Client::factory(10)->create();
     }
 }

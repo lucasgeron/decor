@@ -19,7 +19,7 @@
 /* #INPUTS  */
 
     .input{
-        @apply rounded-lg bg-gray-100 border-transparent focus:border-indigo-500 focus:bg-white focus:outline-none 
+        @apply rounded-lg bg-gray-100 border-transparent focus:border-indigo-500 focus:bg-white focus:outline-none text-sm md:text-base
     }
     
     .input-disabled{
