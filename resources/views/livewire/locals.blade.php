@@ -37,22 +37,7 @@
 
                 {{-- filtros --}}
                 <div class="my-auto py-1">
-                    {{-- paginação --}}
-                    <div class="col form-inline">
-                        <select wire:model="perPage" wire:change="gotoPage(0)"
-                            class="form-control rounded-md border-gray-300 focus:ring-0 font-extralight text-xs py-1 pr-6 ">
-                            <option value="10">10 por Página</option>
-                            <option value="25">25 por Página</option>
-                            <option value="50">50 por Página</option>
-                            <option value="100">100 por Página</option>
-                        </select>
-                    </div>
-                    {{-- somente ativos --}}
-                    <label class="w-1/16 flex radio cursor-pointer font-extralight text-xs mt-1">
-                        <input wire:model="onlyActives" type="checkbox" wire:change="gotoPage(0)"
-                            class="rounded my-auto bg-gray-200 border-transparent focus:border-transparent focus:bg-gray-200 text-gray-700 focus:ring-0 focus:ring-offset-0">
-                        <div class="ml-2">Somente Ativos</div>
-                    </label>
+                    @include('layouts.partials.locals._table-filter')
                 </div>
             </div>
 
@@ -90,7 +75,7 @@
                             </th>
                             {{-- 2 --}}
                             <th class="w-2/12 text-center md:text-left md:w-2/12 md:pl-2 lg:w-4/12" wire:click="sortBy('title')"
-                                style="cursor: pointer">Locais
+                                style="cursor: pointer">Local
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
                             {{-- 3 --}}
@@ -105,6 +90,8 @@
                         </tr>
                     </thead>
 
+
+                    
                     {{-- tabela --}}
                     <tbody>
                         @foreach ($locales as $local)
@@ -129,9 +116,11 @@
 
                                 {{-- phones --}}
                                 <td class="text-left text-xs hidden md:table-cell">
-                                    <span> ({{substr($local->phone1,0,2)}}) {{substr($local->phone1,2,4)}}-{{substr($local->phone1,6,4)}}</span> <br>
-                                    <span> <a href="https://api.whatsapp.com/send?phone=55{{$local->phone2}}" target="_blank" class="hover:text-indigo-700"> ({{substr($local->phone2,0,2)}}) {{substr($local->phone2,2,1)}} {{substr($local->phone2,3,4)}}-{{substr($local->phone2,6,4)}} </a></span> 
+                                   @if($local->phone1) <span> ({{substr($local->phone1,0,2)}}) {{substr($local->phone1,2,4)}}-{{substr($local->phone1,6,4)}}</span> <br> @endif
+                                   @if($local->phone2) <span> <a href="https://api.whatsapp.com/send?phone=55{{$local->phone2}}" target="_blank" class="hover:text-indigo-700"> ({{substr($local->phone2,0,2)}}) {{substr($local->phone2,2,1)}} {{substr($local->phone2,3,4)}}-{{substr($local->phone2,6,4)}} </a></span> @endif
+                                   @if(! ($local->phone1) && !($local->phone2))<span>Indisponível</span> @endif 
                                 </td>
+
 
                                 {{-- actions --}}
                                 <td class="text-center">

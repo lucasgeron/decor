@@ -25,7 +25,7 @@
                             </div>
                             <div class="flex-grow">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">
-                                    Título
+                                    Título  <span class="text-red-700 font-bold text-xs">* </span>
                                 </label>
                                 <input wire:model="obj.title" class="w-full input" type="text" placeholder="Categoria">
                             </div>
@@ -124,7 +124,7 @@
                         </div>
                         <div class="flex-grow">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">
-                                Título
+                                Título  <span class="text-red-700 font-bold text-xs">* </span>
                             </label>
                             <input  wire:model="obj.title" class="w-full input" type="text" placeholder="Categoria">
                         </div>

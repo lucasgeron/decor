@@ -25,8 +25,8 @@ class Locals extends Component
         'obj.district' => 'max:255',
         'obj.city' => 'required|max:255',
         'obj.cep' => 'min:10|max:10',
-        'obj.phone1' => '',
-        'obj.phone2' => '',
+        'obj.phone1' => 'min:14|max:14',
+        'obj.phone2' => 'min:16|max:16',
     ];
 
     // messages for errors
@@ -40,6 +40,10 @@ class Locals extends Component
         'obj.city.max' => 'A <b> Cidade </b> não pode ter mais de 255 caractéres.',
         'obj.cep.min' => 'O <b> CEP </b> informado não é válido.',
         'obj.cep.max' => 'O <b> CEP </b> não pode ter mais de 8 caractéres.',
+        'obj.phone1.min' => 'O <b> Telefone </b> informado não é válido.',
+        'obj.phone1.max' => 'O <b> Telefone </b> informado não é válido.',
+        'obj.phone2.max' => 'O <b> WhatsApp </b> informado não é válido.',
+        'obj.phone2.min' => 'O <b> WhatsApp </b> informado não é válido.',
     ];
 
 
@@ -54,12 +58,15 @@ class Locals extends Component
 
             case 'obj.phone1':
                 $this->obj->phone1 = Manny::mask($this->obj->phone1, "(11) 1111-1111");
+                strlen($this->obj->phone1) == 12 ? $this->obj->phone1 =  Manny::mask('42' . $this->obj->phone1, "(11) 1111-1111") :  $this->obj->phone1;
                 strlen($this->obj->phone1) <= 1 ? $this->obj->phone1 = "" :  $this->obj->phone1;
                 break;
 
             case 'obj.phone2':
                 $this->obj->phone2 = Manny::mask($this->obj->phone2, "(11) 1 1111-1111");
                 strlen($this->obj->phone2) <= 1 ? $this->obj->phone2 = "" :  $this->obj->phone2;
+                strlen($this->obj->phone2) == 13 ? $this->obj->phone2 =  Manny::mask('429' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
+                strlen($this->obj->phone2) == 14 ? $this->obj->phone2 =  Manny::mask('42' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
                 break;
         }
     }
@@ -105,7 +112,7 @@ class Locals extends Component
 
     public function render()
     {
-
+            
         $locales = Local::query()
             ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
                 return $query->where('title', "like", "%{$this->search}%");
@@ -118,7 +125,6 @@ class Locals extends Component
 
         return view('livewire.locals', [
             'locales' => $locales,
-
         ]);
     }
 
