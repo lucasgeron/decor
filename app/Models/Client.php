@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
 
 class Client extends Model
 {
@@ -12,8 +13,7 @@ class Client extends Model
     protected $fillable = ['name',  'address', 'number', 'district', 'cep', 'city', 'phone1', 'phone2'];
 
     public function orders() {
-        // One to One 
-        return $this->hasMany(Orders::class);
+        return $this->hasMany(Order::class);
     }
 
 }

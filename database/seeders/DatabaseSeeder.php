@@ -33,9 +33,11 @@ class DatabaseSeeder extends Seeder
             'city' => 'Guarapuava - PR',
             'cep' => '85035220',
             'phone1' => '',
-            'phone2' => '4299882121',
+            'phone2' => '42999882121',
         ]);
 
-        
+        $this->call([
+            TestSeeder::class,
+        ]);
     }
 }

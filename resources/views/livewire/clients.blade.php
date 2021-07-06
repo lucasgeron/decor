@@ -51,13 +51,13 @@
                         A pesquisa não encontrou resultados.
                         <button wire:click="showModal('create')"
                             class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
-                            Criar client <b class="capitalize"> {{ $this->search }}</b>.
+                            Criar Cliente <b class="capitalize"> {{ $this->search }}</b>.
                         </button>
                     @else
-                        Oops, nenhum <b> client </b> foi encontrado.
+                        Oops, nenhum <b> Cliente </b> foi encontrado.
                         <button wire:click="showModal('create')"
                             class="focus:outline-none rounded-lg text-gray-500  hover:text-indigo-700 hover:border-gray-500">
-                            Clique para criar uma Novo client.
+                            Clique para criar uma Novo Cliente.
                         </button>
                     @endif
                 </p>
@@ -69,24 +69,23 @@
                     <thead>
                         <tr>
                             
-                            {{-- 2 --}}
-                            <th class="w-2/12 text-left md:w-2/12 md:pl-2 lg:w-4/12" wire:click="sortBy('name')"
+                            {{-- 1 --}}
+                            <th class="w-2/12  text-left" wire:click="sortBy('name')"
                                 style="cursor: pointer">Nome
                                 @include('layouts.partials._sort-icon',['field'=>'name'])
                             </th>
-                            {{-- 3 --}}
-                            <th class="w-4/12 text-left hidden lg:table-cell ">Endereço</th>
+                            {{-- 2 --}}
+                            <th class="hidden lg:w-2/12 lg:table-cell text-left">Endereço</th>
                            
+                            {{-- 3 --}}
+                            <th class="hidden md:w-1/12 md:table-cell text-left">Telefones</th>
+
                             {{-- 4 --}}
-                            <th class="w-2/12 text-left hidden md:table-cell ">Telefones</th>
-
-                            {{-- 1 --}}
-                            <th class="w-1/12 text-center cursor-pointer" wire:click="sortBy('pedidos')">Pedidos
-                                    @include('layouts.partials._sort-icon',['field'=>'pedidos']) 
+                            <th class="w-1/12 text-center">Pedidos
+                                    
                             </th>
-
                             {{-- 5 --}}
-                            <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
+                            <th class="w-1/12 md:w-2/12 text-center ">Ações</th>
                         </tr>
                     </thead>
 
@@ -98,7 +97,7 @@
                               
 
                                 {{-- title --}}
-                                <td class="text-left md:pl-2 ">
+                                <td class="text-left ">
                                     {{ $client->name }}
                                 </td>
 
@@ -117,7 +116,7 @@
 
                                 {{-- status --}}
                                 <td class="text-center ">
-                                   00
+                                    <span> {{ count($client->orders) }} </span>
                                 </td>
 
                                 {{-- actions --}}

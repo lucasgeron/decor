@@ -68,20 +68,16 @@
                         {{-- cabeçalhos --}}
                         <thead>
                             <tr>
-                                {{-- 1 --}}
-                                <th class="w-1/12 text-center cursor-pointer" wire:click="sortBy('status')">Status
-                                    @if (!$onlyActives)
-                                        @include('layouts.partials._sort-icon',['field'=>'status']) @endif
-                                </th>
+                              
                                 {{-- 2 --}}
-                                <th class="w-2/12 text-left md:w-4/12 md:pl-2 lg:w-6/12" wire:click="sortBy('title')"
-                                    style="cursor: pointer">Categorias
+                                <th class="w-3/12 md:w-3/12 lg:w-5/12 text-left" wire:click="sortBy('title')"
+                                    style="cursor: pointer">Categoria
                                     @include('layouts.partials._sort-icon',['field'=>'title'])
                                 </th>
                                 {{-- 3 --}}
-                                <th class="w-2/12 text-center hidden md:table-cell ">Produtos</th>
+                                <th class="w-1/12 text-center hidden md:table-cell ">Produtos</th>
                                 {{-- 4 --}}
-                                <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
+                                <th class="w-1/12 md:w-2/12 text-center ">Ações</th>
                             </tr>
                         </thead>
 
@@ -90,14 +86,11 @@
                             @foreach ($categories as $category)
                                 <tr class=" h-12 align-middle hover:bg-gray-50">
 
-                                    {{-- status --}}
-                                    <td class="text-center ">
-                                        <input type="checkbox" class="checkbox h-6 w-6" @if ($category->status == 1) checked @endif
-                                            disabled>
-                                    </td>
-
+                    
                                     {{-- title --}}
-                                    <td class="text-left md:pl-2 ">
+                                    <td class="text-left ">
+                                        <input type="checkbox" class="checkbox h-6 w-6 mr-2" @if ($category->status == 1) checked @endif
+                                            disabled>
                                         {{ $category->title }}
                                     </td>
 

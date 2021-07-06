@@ -81,7 +81,7 @@
                                 {{-- 3 --}}
                                 <th class="w-2/12 text-center hidden md:table-cell ">Produtos</th>
                                 {{-- 4 --}}
-                                <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
+                                <th class="w-1/12 md:w-2/12 text-center ">Ações</th>
                             </tr>
                         </thead>
 

@@ -21,7 +21,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 " for="status">
                                     Status
                                 </label>
-                                <input wire:model="obj.status"  type="checkbox" class="h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
+                                <input wire:model="obj.status"  type="checkbox" class="checkbox h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
                             </div>
                             <div class="flex-grow">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">
@@ -68,7 +68,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 " for="status">
                                 Status
                             </label>
-                            <input disabled wire:model="obj.status"  type="checkbox" class="h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
+                            <input disabled wire:model="obj.status"  type="checkbox" class="checkbox h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
                         </div>
                         <div class="flex-grow">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">
@@ -120,7 +120,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 " for="status">
                                 Status
                             </label>
-                            <input  wire:model="obj.status"  type="checkbox" class="h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
+                            <input  wire:model="obj.status"  type="checkbox" class="checkbox h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
                         </div>
                         <div class="flex-grow">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">
@@ -171,7 +171,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 " for="status">
                                 Status
                             </label>
-                            <input disabled wire:model="obj.status"  type="checkbox" class="h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
+                            <input disabled wire:model="obj.status"  type="checkbox" class="checkbox h-9 w-9 md:w-10 md:h-10"  @if ($obj->status == 1) checked @endif>
                         </div>
                         <div class="flex-grow">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="title">

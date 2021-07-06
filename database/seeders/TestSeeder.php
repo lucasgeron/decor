@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DatabaseTesterSeeder extends Seeder
+class TestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,10 @@ class DatabaseTesterSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
-            LocalSeeder::class,
             ClientSeeder::class,
+            LocalSeeder::class,
+            ProductSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

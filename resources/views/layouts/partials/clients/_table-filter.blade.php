@@ -20,19 +20,8 @@
         x-transition:leave-end="transform opacity-0 scale-95"
         class="origin-top-right fixed  right-4 md:absolute md:right-0 mt-2 w-56  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-50"
         role="menu" aria-orientation="vertical" aria-labelledby="filters-menu" style="display: none;">
-        <div class="py-1" role="none">
-            <div class="block px-4 py-2 text-sm text-gray-700" role="menuitem">
-                <label for="filter-verified" class="block text-sm font-bold uppercase tracking-wide text-gray-700">
-                    Filtrar Resultados
-                </label>
-                <div class="mt-1 relative rounded-md ">
-                    <input wire:model="onlyActives" type="checkbox" wire:change="gotoPage(0)"
-                        class="transition-all duration-200 ease-in-out h-6 w-6 rounded-lg my-auto bg-gray-200 border-transparent text-indigo-700 focus:border-transparent focus:bg-gray-200  focus:ring-0 focus:ring-offset-0">
-                    Exibir Somente Ativos
-                </div>
-               
-            </div>
-        </div>
+        
+        
 
 
         {{-- paginação --}}

@@ -68,24 +68,20 @@
                     {{-- cabeçalhos --}}
                     <thead>
                         <tr>
-                            {{-- 1 --}}
-                            <th class="w-1/12 text-center cursor-pointer" wire:click="sortBy('status')">Status
-                                @if (!$onlyActives)
-                                    @include('layouts.partials._sort-icon',['field'=>'status']) @endif
-                            </th>
+
                             {{-- 2 --}}
-                            <th class="w-2/12 text-left md:w-2/12 md:pl-2 lg:w-4/12" wire:click="sortBy('title')"
+                            <th class="w-3/12 text-left" wire:click="sortBy('title')"
                                 style="cursor: pointer">Local
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
                             {{-- 3 --}}
-                            <th class="w-4/12 text-left hidden lg:table-cell ">Endereço</th>
+                            <th class="hidden lg:w-2/12 lg:table-cell text-left">Endereço</th>
                            
                             {{-- 4 --}}
-                            <th class="w-2/12 text-left hidden md:table-cell ">Telefones</th>
+                            <th class="hidden md:w-1/12 md:table-cell text-left ">Telefones</th>
 
                             {{-- 5 --}}
-                            <th class="w-1/12 md:w-3/12 text-center ">Ações</th>
+                            <th class="w-1/12 md:w-2/12 text-center ">Ações</th>
                         </tr>
                     </thead>
 
@@ -94,14 +90,11 @@
                         @foreach ($locals as $local)
                             <tr class=" h-12 align-middle hover:bg-gray-100">
 
-                                {{-- status --}}
-                                <td class="text-center ">
-                                    <input type="checkbox" class="checkbox h-6 w-6"  @if ($local->status == 1) checked @endif disabled>
-                                </td>
-
                                 {{-- title --}}
-                                <td class="text-left md:pl-2 ">
-                                    {{ $local->title }}
+                                <td class="text-left ">
+                                    <input type="checkbox" class="checkbox h-6 w-6 mr-2"  @if ($local->status == 1) checked @endif disabled>
+                              
+                                      {{ $local->title }}
                                 </td>
 
                                 {{-- address --}}

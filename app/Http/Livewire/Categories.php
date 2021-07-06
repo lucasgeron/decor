@@ -85,7 +85,6 @@ class Categories extends Component
 
         return view('livewire.categories', [
             'categories' => $categories,
-            
         ]);
     }
 

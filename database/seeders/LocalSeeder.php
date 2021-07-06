@@ -14,6 +14,6 @@ class LocalSeeder extends Seeder
      */
     public function run()
     {
-        Local::factory(10)->create();
+        Local::factory(5)->create();
     }
 }
