@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Index;
 use Illuminate\Database\Seeder;
 
 class IndexSeeder extends Seeder
@@ -13,6 +14,6 @@ class IndexSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Index::factory(55)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Index;
+use App\Models\Local;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class IndexFactory extends Factory
@@ -22,7 +23,8 @@ class IndexFactory extends Factory
     public function definition()
     {
         return [
-            //
+           'title' => $this->faker->lexify("?????"), 
+           'locals_id' => rand(1, Local::all()->count())
         ];
     }
 }

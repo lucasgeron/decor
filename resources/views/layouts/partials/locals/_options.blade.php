@@ -22,11 +22,9 @@
                 <label for="filter-verified" class="block text-xs font-bold uppercase tracking-wide text-gray-700">
                     Ações
                 </label>
-
                 <div class="space-y-2">
-
                     <div class="mt-1 relative rounded-md">
-                        <a href="{{ route('indexes.index', $local->id ?? '') }}">
+                        <a href="{{ route('indexes.index', $local->id ) }}">
                             <button class="w-full btn-dropdown-indigo">Ver Índices </button>
                         </a>
                     </div>
@@ -44,7 +42,7 @@
 
                 <div class="space-y-2">
                     <div class="mt-1 relative rounded-md ">
-                        <button wire:click="showModal('edit', {{ $local->id }})"
+                        <button wire:click="showModal('edit', {{ $local->id }} )"
                             class=" w-full  btn-dropdown-indigo">Editar</button>
                     </div>
                     <div class="mt-1 relative rounded-md ">

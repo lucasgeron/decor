@@ -39,6 +39,32 @@
         <div class="py-1" role="none">
             <div class="block px-4 py-2 text-sm text-gray-700" role="menuitem">
                 <label for="filter-active" class="block text-sm font-bold uppercase tracking-wide text-gray-700">
+                    Filtrar Locais
+                </label>
+                
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <select wire:model="onlyLocalId" wire:change="$emit('updateFilter') " {{-- class="rounded-lg block w-full pl-3 pr-10 py-2 text-base border-none bg-gray-100 focus:outline-none focus:border-indigo-700 sm:text-sm sm:leading-5"> --}}
+                        class="rounded-lg bg-gray-100 border-transparent focus:border-indigo-500 focus:bg-white focus:outline-none block w-full pl-3 pr-10 py-2 text-sm ">
+                        
+                        <option @if($local->id == $this->local->id) selected @endif value="">Todos</option>
+                        
+                        @foreach ($locals as $local)
+                        {{ $local->id }}
+                            <option  @if($local->id == $this->local->id) selected @endif  value="{{ $local->id }}">{{ $local->title }}</option>
+                        @endforeach
+                        
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {{-- paginação --}}
+        <div class="py-1" role="none">
+            <div class="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+                <label for="filter-active" class="block text-sm font-bold uppercase tracking-wide text-gray-700">
                     Exibição
                 </label>
 

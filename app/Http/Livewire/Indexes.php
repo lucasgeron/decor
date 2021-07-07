@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Local;
 use App\Models\Index;
+use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request as HttpRequest;
 use Manny;
 
 class Indexes extends Component
@@ -17,20 +19,21 @@ class Indexes extends Component
     // Model Object
     public Index $obj;
     public Local $local;
+    public $curLocal;
 
     // rules
-    // protected $rules = [
-    //     // every $obj attr must have a rule. required to work correctly
-    //     'obj.status' => '',
-    //     'obj.title' => 'required|min:3|max:255',
-    //     'obj.address' => 'max:255',
-    //     'obj.number' => '',
-    //     'obj.district' => 'max:255',
-    //     'obj.city' => 'required|max:255',
-    //     'obj.cep' => 'min:10|max:10',
-    //     'obj.phone1' => 'min:14|max:14',
-    //     'obj.phone2' => 'min:16|max:16',
-    // ];
+    protected $rules = [
+        // every $obj attr must have a rule. required to work correctly
+        'obj.status' => '',
+        'obj.title' => 'required|min:3|max:255',
+        'obj.address' => 'max:255',
+        'obj.number' => '',
+        'obj.district' => 'max:255',
+        'obj.city' => 'required|max:255',
+        'obj.cep' => 'min:10|max:10',
+        'obj.phone1' => 'min:14|max:14',
+        'obj.phone2' => 'min:16|max:16',
+    ];
 
     // messages for errors
     protected $messages = [
@@ -86,8 +89,12 @@ class Indexes extends Component
     protected $queryString = [
         'search' => ['except' => '']
     ];
+
+    protected $listeners = ['updateFilter' => 'updateFilter'];
+
     public $search = "";
     public $onlyActives;
+    public $onlyLocalId;
 
     // database params
     public $sortBy = 'title';
@@ -107,30 +114,54 @@ class Indexes extends Component
     }
 
     // livewire methods
-    public function mount($id)
+    public function mount(Request $request)
     {
-        try{
-            $this->local = Local::findOrFail($id);
+
+
+        if (!$request->segment(2)) {
+            $this->local = new Local();
+        } else {
+
+            try {
+                $this->local = Local::findOrFail($request->segment(2));
+                $this->onlyLocalId = $this->local->id;
+            } catch (ModelNotFoundException) {
+                $this->local = new Local();
+                $this->onlyLocalId = '';
+
+                $flash = [
+                    'color' => 'red',
+                    'title' => "Operação Não Realizada",
+                    'message' => 'O Local solicitado não foi encontrado.'
+                ];
+
+                session()->flash('flash', $flash);
+            }
         }
-        catch(ModelNotFoundException){
-            return redirect()->to('locais');
-        }            
+    }
+
+    public function updateFilter()
+    {
+        return redirect()->route('indexes.index', $this->onlyLocalId);
     }
 
     public function render()
     {
-   
-        $locals = Local::query()
+
+        $locals = Local::all();
+        $indexes = Index::query()
             ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
                 return $query->where('title', "like", "%{$this->search}%");
             })
-            ->when($this->onlyActives == 1, function ($query) { // IF ONLY ACTIVES IS ON
-                return $query->where('status', "1");
+            ->when($this->onlyLocalId != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+                return $query->where('locals_id', "like", $this->onlyLocalId);
             })
+            ->with('locals')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
         return view('livewire.indexes', [
+            'indexes' => $indexes,
             'locals' => $locals,
         ]);
     }
@@ -138,7 +169,7 @@ class Indexes extends Component
     // navigation methods
     public function showModal($modal, $id = null)
     {
-        
+
         $this->resetValidation();
 
         if ($id != null) {

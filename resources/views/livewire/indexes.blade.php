@@ -11,31 +11,39 @@
     {{-- content --}}
     <div class="main"> {{-- Main --}}
         <div class="container"> {{-- Container --}}
-            {{ $local }}
+            {{ $local->title }} - {{ $local->id }}
+
+            <br>
+            <br>
+            <br>
+
+
+            @foreach ($locals as $local)
+                {{ $local->id }} | {{ $this->local->id }}
+                @if ($local->id == $this->local->id) true <br> @endif
+            @endforeach
+
         </div> {{-- end Container --}}
     </div> {{-- end Main --}}
 
 
-<!--
     {{-- content --}}
-    <div class="main"> {{-- Main --}}
+    <div class="main -mt-6"> {{-- Main --}}
         <div class="container"> {{-- Container --}}
-
-
 
             {{-- barra superior da tabela --}}
             <div class="flex">
 
                 {{-- paginação --}}
                 <div class="flex-grow mr-2 py-2">
-                    @if ($locals->hasPages())
-                        {{ $locals->links() }}
+                    @if ($indexes->hasPages())
+                        {{ $indexes->links() }}
                     @else
                         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                             <div class="mr-2 py-2">
                                 <p class="text-sm text-gray-700 leading-5">
-                                    @if ($locals->total() > 0)
-                                    <span>Exibindo {{ $locals->total() }} @if ($locals->total() == 1) resultado. @else resultados.
+                                    @if ($indexes->total() > 0)
+                                    <span>Exibindo {{ $indexes->total() }} @if ($indexes->total() == 1) resultado. @else resultados.
                                             @endif</span>
                                     @else
                                         <span>Nenhum resultados para exibir.</span>
@@ -48,7 +56,7 @@
 
                 {{-- filtros --}}
                 <div class="my-auto py-1">
-                    @include('layouts.partials.locals._table-filter')
+                    @include('layouts.partials.indexes._table-filter')
                 </div>
             </div>
 
@@ -56,7 +64,7 @@
             <hr class="my-2">
 
             {{-- corpo da tabela : vazio --}}
-            @if (count($locals) == 0)
+            @if (count($indexes) == 0)
                 <p class="text-center text-gray-500">
                     @if ($this->search)
                         A pesquisa não encontrou resultados.
@@ -97,39 +105,42 @@
 
                     {{-- tabela --}}
                     <tbody>
-                        @foreach ($locals as $local)
+                        @foreach ($indexes as $index)
                             <tr class=" h-12 align-middle hover:bg-gray-100">
 
                                 {{-- title --}}
                                 <td class="text-left ">
-                                    <input type="checkbox" class="checkbox h-6 w-6 mr-2" @if ($local->status == 1) checked @endif disabled>
+                                    <input type="checkbox" class="checkbox h-6 w-6 mr-2" @if ($index->status == 1) checked @endif disabled>
 
-                                    {{ $local->title }}
+                                    {{ $index->title }}
                                 </td>
 
                                 {{-- address --}}
                                 <td class="text-left text-xs hidden lg:table-cell">
-                                    <span> {{ $local->address }}, {{ $local->number }},
-                                        {{ $local->district }}.<br> {{ $local->city }} - CEP:
-                                        {{ substr($local->cep, 0, 2) }}.{{ substr($local->cep, 2, 3) }}-{{ substr($local->cep, 5, 3) }}
+                                    <span> {{ $index->address }}, {{ $index->number }},
+                                        {{ $index->district }}.<br> {{ $index->city }} - CEP:
+                                        {{ substr($index->cep, 0, 2) }}.{{ substr($index->cep, 2, 3) }}-{{ substr($index->cep, 5, 3) }}
                                     </span>
                                 </td>
 
 
                                 {{-- phones --}}
                                 <td class="text-left text-xs hidden md:table-cell">
-                                    @if ($local->phone1) <span>
-                                            ({{ substr($local->phone1, 0, 2) }})
-                                            {{ substr($local->phone1, 2, 4) }}-{{ substr($local->phone1, 6, 4) }}</span>
-                                        <br> @endif
-                                    @if ($local->phone2) <span> <a
-                                                href="https://api.whatsapp.com/send?phone=55{{ $local->phone2 }}"
+                                    @if ($index->phone1) <span>
+                                            ({{ substr($index->phone1, 0, 2) }})
+                                            {{ substr($index->phone1, 2, 4) }}-{{ substr($index->phone1, 6, 4) }}</span>
+                                        <br>
+                                    @endif
+                                    @if ($index->phone2) <span> <a
+                                                href="https://api.whatsapp.com/send?phone=55{{ $index->phone2 }}"
                                                 target="_blank" class="hover:text-indigo-700">
-                                                ({{ substr($local->phone2, 0, 2) }}) {{ substr($local->phone2, 2, 1) }}
-                                                {{ substr($local->phone2, 3, 4) }}-{{ substr($local->phone2, 7, 4) }}
+                                                ({{ substr($index->phone2, 0, 2) }})
+                                                {{ substr($index->phone2, 2, 1) }}
+                                                {{ substr($index->phone2, 3, 4) }}-{{ substr($index->phone2, 7, 4) }}
                                             </a></span> @endif
-                                    @if (!$local->phone1 && !$local->phone2)
-                                        <span>Indisponível</span> @endif
+                                    @if (!$index->phone1 && !$index->phone2)
+                                        <span>Indisponível</span>
+                                    @endif
                                 </td>
 
                                 {{-- actions --}}
@@ -137,17 +148,17 @@
                                     <div class="flex justify-between gap-1">
 
                                         {{-- actions for mobile --}}
-                                        <button wire:click="showModal('actions', {{ $local->id }})"
+                                        <button wire:click="showModal('actions', {{ $index->id }})"
                                             class="md:hidden btn-table-mobile-indigo">Ver</button>
 
                                         {{-- actions for md or more --}}
-                                        <button wire:click="showModal('delete', {{ $local->id }})"
+                                        <button wire:click="showModal('delete', {{ $index->id }})"
                                             class="hidden md:block btn-table-red">Remover</button>
 
-                                        <button wire:click="showModal('edit', {{ $local->id }})"
+                                        <button wire:click="showModal('edit', {{ $index->id }})"
                                             class="hidden md:block btn-table-indigo">Editar</button>
 
-                                        <button wire:click="showModal('actions', {{ $local->id }})"
+                                        <button wire:click="showModal('actions', {{ $index->id }})"
                                             class="hidden md:block btn-table-indigo">Ver</button>
 
                                     </div>
@@ -162,7 +173,7 @@
 
         </div> {{-- end Container --}}
     </div> {{-- end Main --}}
---> 
+
     {{-- modals --}}
     {{-- @include('layouts.partials.indexes._modals') --}}
 
