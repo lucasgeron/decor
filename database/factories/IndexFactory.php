@@ -2,21 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Order;
+use App\Models\Index;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Http\Controllers\OrderStatus;
 
-class OrderFactory extends Factory
+class IndexFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Order::class;
-
-    
-    
+    protected $model = Index::class;
 
     /**
      * Define the model's default state.
@@ -26,8 +22,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'status' => OrderStatus::getOrderStatus()[rand(0, count(OrderStatus::getOrderStatus()) - 1)],
-            'client_id' => rand(1,50),
+            //
         ];
     }
 }

@@ -490,10 +490,6 @@
         </div>
 
         <div class=" justify-end gap-y-2 w-full py-2 ">
-
-            <a href="{{ route('indexes.index', $obj->id ?? '') }}" ><button 
-            class="mt-2 w-full  text-center  bg-gray-200 hover:bg-gray-500 focus:shadow-outline text-gray-700 hover:text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Ver Índices </button>
-            </a>
             <button wire:click="showModal('delete', {{ $obj->id }})"
                 class="mt-2 w-full  text-center  bg-red-500 hover:bg-red-700 focus:shadow-outline text-white  p-3 rounded-lg focus:outline-none  uppercase tracking-wide font-bold text-xs">Remover</button>
 

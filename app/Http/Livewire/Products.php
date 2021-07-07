@@ -46,7 +46,7 @@ class Products extends Component
     ];
     public $search = "";
     public $onlyActives;
-
+    public $onlyCategory;
     // database params
     public $sortBy = 'title';
     public $sortDirection = 'asc';
@@ -85,12 +85,16 @@ class Products extends Component
             ->when($this->onlyActives == 1, function ($query) { // IF ONLY ACTIVES IS ON
                 return $query->where('status', "1");
             })
+            ->when($this->onlyCategory != "", function ($query) { // IF ONLY ACTIVES IS ON
+                return $query->where('category_id', "like", "%{$this->onlyCategory}%");
+            })
             ->with('category') // carrega todas as categorias em uma consulta, em vez de consultar toda vez.
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
         return view('livewire.products', [
             'products' => $products,
+            'categories' => Category::all(),
 
         ]);
     }

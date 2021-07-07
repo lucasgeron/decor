@@ -10,4 +10,6 @@ class Cities extends Controller
     public static function getCities(){
         return ['Guarapuava - PR', 'Ponta Grossa - PR', 'Irati - PR'];
     }
+
+    
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Category;
+use App\Models\Order;
 use Livewire\WithPagination;
 
 class Orders extends Component
@@ -12,14 +12,13 @@ class Orders extends Component
     use WithPagination;
 
     // Model Object
-    public Category $obj;
+    public Order $obj;
 
     // rules
     public function rules() {
+         // required to work correctly
         return [
-            'obj.title' => 'required|min:3|max:255|unique:categories,title,'.$this->obj->id,
-            'obj.status' => '', // required to work correctly
-          
+            'obj.status' => '',
         ];
     }
     
@@ -47,7 +46,7 @@ class Orders extends Component
     public $onlyActives;
 
     // database params
-    public $sortBy = 'title';
+    public $sortBy = 'id';
     public $sortDirection = 'asc';
     public $perPage = 10;
 
@@ -67,24 +66,25 @@ class Orders extends Component
     public function mount()
     {
         // initialize empty object (prevent null errors)
-        $this->obj = new Category();
+        $this->obj = new Order();
     }
 
     public function render()
     {
         
-        $categories = Category::query()
-        ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
-                    return $query->where('title', "like", "%{$this->search}%");
-                })
-                ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
-                    return $query->where('status', "1");
-                })
+        $orders = Order::query()
+                // ->when($this->search!= "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
+                //     return $query->where('title', "like", "%{$this->search}%");
+                // })
+                // ->when($this->onlyActives ==1 , function ($query) { // IF ONLY ACTIVES IS ON
+                //     return $query->where('status', "1");
+                // })
+                ->with('client')
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->perPage);
 
         return view('livewire.orders', [
-            'categories' => $categories,
+            'orders' => $orders,
             
         ]);
     }
@@ -95,11 +95,10 @@ class Orders extends Component
         $this->resetValidation();
 
         if($id != null){
-            $this->obj = Category::find($id);
+            $this->obj = Order::find($id);
         }else {
-            $this->obj = new Category([            
-                'status' => true,
-                'title' => ucfirst($this->search),
+            $this->obj = new Order([            
+                'status' => OrderStatus::getOrderStatus()[0],
             ]);
         }
         
@@ -122,9 +121,9 @@ class Orders extends Component
 
         $this->validate();
 
-        Category::create([
-            'title' => $this->obj->title,
+        Order::create([
             'status' => $this->obj->status,
+            'client_id' => ''
         ]);
 
         $flash = [

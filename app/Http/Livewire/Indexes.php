@@ -4,30 +4,33 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Local;
+use App\Models\Index;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Manny;
 
-class Locals extends Component
+class Indexes extends Component
 {
 
     use WithPagination;
 
     // Model Object
-    public Local $obj;
+    public Index $obj;
+    public Local $local;
 
     // rules
-    protected $rules = [
-        // every $obj attr must have a rule. required to work correctly
-        'obj.status' => '',
-        'obj.title' => 'required|min:3|max:255',
-        'obj.address' => 'max:255',
-        'obj.number' => '',
-        'obj.district' => 'max:255',
-        'obj.city' => 'required|max:255',
-        'obj.cep' => 'min:10|max:10',
-        'obj.phone1' => 'min:14|max:14',
-        'obj.phone2' => 'min:16|max:16',
-    ];
+    // protected $rules = [
+    //     // every $obj attr must have a rule. required to work correctly
+    //     'obj.status' => '',
+    //     'obj.title' => 'required|min:3|max:255',
+    //     'obj.address' => 'max:255',
+    //     'obj.number' => '',
+    //     'obj.district' => 'max:255',
+    //     'obj.city' => 'required|max:255',
+    //     'obj.cep' => 'min:10|max:10',
+    //     'obj.phone1' => 'min:14|max:14',
+    //     'obj.phone2' => 'min:16|max:16',
+    // ];
 
     // messages for errors
     protected $messages = [
@@ -48,28 +51,28 @@ class Locals extends Component
 
 
     // Manny Masks
-    public function updated($field)
-    {
-        switch ($field) {
-            case 'obj.cep':
-                $this->obj->cep = Manny::mask($this->obj->cep, "11.111-111");
-                $this->obj->cep >= 0 ?  $this->obj->cep : $this->obj->cep = "";
-                break;
+    // public function updated($field)
+    // {
+    //     switch ($field) {
+    //         case 'obj.cep':
+    //             $this->obj->cep = Manny::mask($this->obj->cep, "11.111-111");
+    //             $this->obj->cep >= 0 ?  $this->obj->cep : $this->obj->cep = "";
+    //             break;
 
-            case 'obj.phone1':
-                $this->obj->phone1 = Manny::mask($this->obj->phone1, "(11) 1111-1111");
-                strlen($this->obj->phone1) == 12 ? $this->obj->phone1 =  Manny::mask('42' . $this->obj->phone1, "(11) 1111-1111") :  $this->obj->phone1;
-                strlen($this->obj->phone1) <= 1 ? $this->obj->phone1 = "" :  $this->obj->phone1;
-                break;
+    //         case 'obj.phone1':
+    //             $this->obj->phone1 = Manny::mask($this->obj->phone1, "(11) 1111-1111");
+    //             strlen($this->obj->phone1) == 12 ? $this->obj->phone1 =  Manny::mask('42' . $this->obj->phone1, "(11) 1111-1111") :  $this->obj->phone1;
+    //             strlen($this->obj->phone1) <= 1 ? $this->obj->phone1 = "" :  $this->obj->phone1;
+    //             break;
 
-            case 'obj.phone2':
-                $this->obj->phone2 = Manny::mask($this->obj->phone2, "(11) 1 1111-1111");
-                strlen($this->obj->phone2) <= 1 ? $this->obj->phone2 = "" :  $this->obj->phone2;
-                strlen($this->obj->phone2) == 13 ? $this->obj->phone2 =  Manny::mask('429' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
-                strlen($this->obj->phone2) == 14 ? $this->obj->phone2 =  Manny::mask('42' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
-                break;
-        }
-    }
+    //         case 'obj.phone2':
+    //             $this->obj->phone2 = Manny::mask($this->obj->phone2, "(11) 1 1111-1111");
+    //             strlen($this->obj->phone2) <= 1 ? $this->obj->phone2 = "" :  $this->obj->phone2;
+    //             strlen($this->obj->phone2) == 13 ? $this->obj->phone2 =  Manny::mask('429' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
+    //             strlen($this->obj->phone2) == 14 ? $this->obj->phone2 =  Manny::mask('42' . $this->obj->phone2, "(11) 1 1111-1111") :  $this->obj->phone2;
+    //             break;
+    //     }
+    // }
 
     // modals
     public $modals = [
@@ -104,16 +107,19 @@ class Locals extends Component
     }
 
     // livewire methods
-    public function mount()
+    public function mount($id)
     {
-       
-        $this->obj = new Local();
-    
+        try{
+            $this->local = Local::findOrFail($id);
+        }
+        catch(ModelNotFoundException){
+            return redirect()->to('locais');
+        }            
     }
 
     public function render()
     {
-            
+   
         $locals = Local::query()
             ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
                 return $query->where('title', "like", "%{$this->search}%");
@@ -124,7 +130,7 @@ class Locals extends Component
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.locals', [
+        return view('livewire.indexes', [
             'locals' => $locals,
         ]);
     }
