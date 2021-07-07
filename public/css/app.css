@@ -34557,7 +34557,7 @@ select {
      -moz-appearance: none;
           appearance: none;
   --tw-bg-opacity: 1;
-  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+  background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
   border-color: transparent;
   border-radius: 0.5rem;
   outline: 2px solid transparent;
@@ -34688,136 +34688,104 @@ select {
   letter-spacing: 0.025em;
 }
 
-.btn-table-mobile-indigo {
+.btn-dropdown-indigo {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity))
 }
 
-.btn-table-mobile-indigo:hover {
+.btn-dropdown-indigo:hover {
   --tw-border-opacity: 1;
   border-color: rgba(67, 56, 202, var(--tw-border-opacity));
 }
 
-.btn-table-mobile-indigo {
+.btn-dropdown-indigo {
   border-radius: 0.5rem;
   border-width: 1px;
   flex: 1 1 0%;
   font-weight: 700;
-  height: 2rem;
+  height: 2.5rem;
   font-size: 0.75rem;
   line-height: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn-table-mobile-indigo:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
-.btn-table-mobile-indigo {
+.btn-dropdown-indigo:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.btn-dropdown-indigo {
   padding: 0.5rem;
   text-align: center;
   --tw-text-opacity: 1;
   color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
 
-.btn-table-mobile-indigo:hover {
+.btn-dropdown-indigo:hover {
   --tw-text-opacity: 1;
   color: rgba(67, 56, 202, var(--tw-text-opacity));
 }
 
-.btn-table-mobile-indigo {
+.btn-dropdown-indigo {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   vertical-align: middle;
-  width: 50%;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
-.btn-table-indigo {
+.btn-dropdown-red {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity))
 }
 
-.btn-table-indigo:hover {
-  --tw-border-opacity: 1;
-  border-color: rgba(67, 56, 202, var(--tw-border-opacity));
-}
-
-.btn-table-indigo {
-  border-radius: 0.5rem;
-  border-width: 1px;
-  flex: 1 1 0%;
-  font-weight: 700;
-  height: 2rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-.btn-table-indigo:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.btn-table-indigo {
-  padding: 0.25rem;
-  text-align: center;
-  --tw-text-opacity: 1;
-  color: rgba(107, 114, 128, var(--tw-text-opacity));
-}
-
-.btn-table-indigo:hover {
-  --tw-text-opacity: 1;
-  color: rgba(67, 56, 202, var(--tw-text-opacity));
-}
-
-.btn-table-indigo {
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  vertical-align: middle;
-}
-
-.btn-table-red {
-  --tw-bg-opacity: 1;
-  background-color: rgba(243, 244, 246, var(--tw-bg-opacity))
-}
-
-.btn-table-red:hover {
+.btn-dropdown-red:hover {
   --tw-border-opacity: 1;
   border-color: rgba(185, 28, 28, var(--tw-border-opacity));
 }
 
-.btn-table-red {
+.btn-dropdown-red {
   border-radius: 0.5rem;
   border-width: 1px;
   flex: 1 1 0%;
   font-weight: 700;
-  height: 2rem;
+  height: 2.5rem;
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.btn-table-red:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
-.btn-table-red {
-  padding: 0.25rem;
+.btn-dropdown-red:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.btn-dropdown-red {
+  padding: 0.5rem;
   text-align: center;
   --tw-text-opacity: 1;
   color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
 
-.btn-table-red:hover {
+.btn-dropdown-red:hover {
   --tw-text-opacity: 1;
   color: rgba(185, 28, 28, var(--tw-text-opacity));
 }
 
-.btn-table-red {
+.btn-dropdown-red {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   vertical-align: middle;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
 /* #LISTS  */

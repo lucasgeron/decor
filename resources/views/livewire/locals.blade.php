@@ -2,7 +2,7 @@
 
     {{-- page menu --}}
     @include('layouts.partials._navigation-menu', [
-        'title' => 'Locais'
+    'title' => 'Locais'
     ])
 
     {{-- flash messages --}}
@@ -70,65 +70,81 @@
                         <tr>
 
                             {{-- 2 --}}
-                            <th class="w-3/12 text-left" wire:click="sortBy('title')"
+                            <th class="w-3/12 md:w-2/12  lg:w-1/12 text-center" @if(!$onlyActives) wire:click="sortBy('status')"
+                                style="cursor: pointer" @endif> Status
+                                @if(!$onlyActives)
+                                 @include('layouts.partials._sort-icon',['field'=>'status'])
+                                 @endif
+                            </th>
+                      
+                               
+                          
+                            {{-- 2 --}}
+                            <th class="w-7/12 md:w-6/12 lg:w-4/12 text-left" wire:click="sortBy('title')"
                                 style="cursor: pointer">Local
                                 @include('layouts.partials._sort-icon',['field'=>'title'])
                             </th>
                             {{-- 3 --}}
-                            <th class="hidden lg:w-2/12 lg:table-cell text-left">Endereço</th>
-                           
+                            <th class="hidden lg:w-4/12 lg:table-cell text-left">Endereço</th>
+
                             {{-- 4 --}}
-                            <th class="hidden md:w-1/12 md:table-cell text-left ">Telefones</th>
+                            <th class="hidden md:w-2/12 md:table-cell text-left ">Telefones</th>
 
                             {{-- 5 --}}
-                            <th class="w-1/12 md:w-2/12 text-center ">Ações</th>
+                            <th class="w-2/12 md:w-2/12  lg:w-1/12 text-right">Ações</th>
                         </tr>
                     </thead>
 
                     {{-- tabela --}}
                     <tbody>
                         @foreach ($locals as $local)
-                            <tr class=" h-12 align-middle hover:bg-gray-100">
+                            <tr class=" h-12 align-middle hover:bg-gray-50 rounded-lg" >
 
                                 {{-- title --}}
+                                <td class="text-center ">
+                                    <input type="checkbox" class="checkbox h-6 w-6 mr-2" @if ($local->status == 1) checked @endif disabled>
+
+                                </td>
+                                {{-- title --}}
                                 <td class="text-left ">
-                                    <input type="checkbox" class="checkbox h-6 w-6 mr-2"  @if ($local->status == 1) checked @endif disabled>
-                              
-                                      {{ $local->title }}
+                                    {{-- <input type="checkbox" class="checkbox h-6 w-6 mr-2"  @if ($local->status == 1) checked @endif disabled> --}}
+                                    <a wire:click="showModal('actions', {{ $local->id }})" class="cursor-pointer" >
+                                        {{ $local->title }}  
+
+                                     
+
+                                    </a>
                                 </td>
 
                                 {{-- address --}}
                                 <td class="text-left text-xs hidden lg:table-cell">
-                                    <span> {{ $local->address }}, {{ $local->number }}, {{ $local->district }}.<br> {{ $local->city }} - CEP: {{substr($local->cep,0,2)}}.{{substr($local->cep,2,3)}}-{{substr($local->cep,5,3)}} </span>
+                                    <span> {{ $local->address }}, {{ $local->number }},
+                                        {{ $local->district }}.<br> {{ $local->city }} - CEP:
+                                        {{ substr($local->cep, 0, 2) }}.{{ substr($local->cep, 2, 3) }}-{{ substr($local->cep, 5, 3) }}
+                                    </span>
                                 </td>
 
 
                                 {{-- phones --}}
                                 <td class="text-left text-xs hidden md:table-cell">
-                                   @if($local->phone1) <span> ({{substr($local->phone1,0,2)}}) {{substr($local->phone1,2,4)}}-{{substr($local->phone1,6,4)}}</span> <br> @endif
-                                   @if($local->phone2) <span> <a href="https://api.whatsapp.com/send?phone=55{{$local->phone2}}" target="_blank" class="hover:text-indigo-700"> ({{substr($local->phone2,0,2)}}) {{substr($local->phone2,2,1)}} {{substr($local->phone2,3,4)}}-{{substr($local->phone2,7,4)}} </a></span> @endif
-                                   @if(! ($local->phone1) && !($local->phone2))<span>Indisponível</span> @endif 
+                                    @if ($local->phone1) <span>
+                                            ({{ substr($local->phone1, 0, 2) }})
+                                            {{ substr($local->phone1, 2, 4) }}-{{ substr($local->phone1, 6, 4) }}</span>
+                                        <br> @endif
+                                    @if ($local->phone2) <span> <a
+                                                href="https://api.whatsapp.com/send?phone=55{{ $local->phone2 }}"
+                                                target="_blank" class="hover:text-indigo-700">
+                                                ({{ substr($local->phone2, 0, 2) }}) {{ substr($local->phone2, 2, 1) }}
+                                                {{ substr($local->phone2, 3, 4) }}-{{ substr($local->phone2, 7, 4) }}
+                                            </a></span> @endif
+                                    @if (!$local->phone1 && !$local->phone2)
+                                        <span>Indisponível</span> @endif
                                 </td>
 
                                 {{-- actions --}}
-                                <td class="text-center">
-                                    <div class="flex justify-between gap-1">
-
-                                        {{-- actions for mobile --}}
-                                        <button wire:click="showModal('actions', {{ $local->id }})"
-                                            class="md:hidden btn-table-mobile-indigo">Ver</button>
-
-                                        {{-- actions for md or more --}}
-                                        <button wire:click="showModal('delete', {{ $local->id }})"
-                                            class="hidden md:block btn-table-red">Remover</button>
-
-                                        <button wire:click="showModal('edit', {{ $local->id }})"
-                                            class="hidden md:block btn-table-indigo">Editar</button>
-
-                                        <button wire:click="showModal('actions', {{ $local->id }})"
-                                            class="hidden md:block btn-table-indigo">Ver</button>
-
-                                    </div>
+                                <td class="text-right">
+                                    {{-- menu options --}}
+                                    @include('layouts.partials.locals._options')
                                 </td>
 
                             </tr>

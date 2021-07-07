@@ -27,7 +27,7 @@
     }
     
     .checkbox{
-        @apply transition-all duration-200 ease-in-out border-transparent  bg-gray-100 rounded-lg focus:outline-none outline-none appearance-none text-indigo-700 
+        @apply transition-all duration-200 ease-in-out border-transparent  bg-gray-200 rounded-lg focus:outline-none outline-none appearance-none text-indigo-700 
     }
 
 
@@ -45,20 +45,15 @@
         @apply  flex-1 max-w-xs uppercase tracking-wide text-xs h-10 font-bold  bg-gray-100 hover:bg-gray-500  focus:outline-none text-gray-700 hover:text-white p-2  rounded-lg
     }
 
-    
-    
 
-    .btn-table-mobile-indigo {
-        @apply  text-center h-8 p-2 w-1/2 mx-auto rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
+    .btn-dropdown-indigo {
+        @apply transition-all duration-200 outline-none ease-in-out text-center h-10 p-2 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
     }
 
-    .btn-table-indigo {
-        @apply text-center h-8 p-1 rounded-lg bg-gray-100 border hover:border-indigo-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-indigo-700 text-xs font-bold align-middle focus:outline-none
+    .btn-dropdown-red {
+        @apply transition-all duration-200 outline-none ease-in-out text-center h-10 p-2 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none
     }
 
-    .btn-table-red {
-        @apply text-center h-8 p-1 rounded-lg bg-gray-100 border hover:border-red-700 flex-1 uppercase tracking-wide text-gray-500  hover:text-red-700 text-xs font-bold align-middle focus:outline-none
-    }
 
 /* #LISTS  */
 
