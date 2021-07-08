@@ -3,12 +3,12 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Product;
 use App\Models\Local;
 use App\Models\Index;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request as HttpRequest;
 use Manny;
 
 class Indexes extends Component
@@ -26,13 +26,8 @@ class Indexes extends Component
         // every $obj attr must have a rule. required to work correctly
         'obj.status' => '',
         'obj.title' => 'required|min:3|max:255',
-        'obj.address' => 'max:255',
-        'obj.number' => '',
-        'obj.district' => 'max:255',
-        'obj.city' => 'required|max:255',
-        'obj.cep' => 'min:10|max:10',
-        'obj.phone1' => 'min:14|max:14',
-        'obj.phone2' => 'min:16|max:16',
+        'obj.local_id' => 'required',
+
     ];
 
     // messages for errors
@@ -50,6 +45,7 @@ class Indexes extends Component
         'obj.phone1.max' => 'O <b> Telefone </b> informado não é válido.',
         'obj.phone2.max' => 'O <b> WhatsApp </b> informado não é válido.',
         'obj.phone2.min' => 'O <b> WhatsApp </b> informado não é válido.',
+
     ];
 
 
@@ -99,7 +95,7 @@ class Indexes extends Component
     // database params
     public $sortBy = 'title';
     public $sortDirection = 'asc';
-    public $perPage = 10;
+    public $perPage = 24;
 
     // database methods
     public function sortBy($field)
@@ -131,7 +127,7 @@ class Indexes extends Component
 
                 $flash = [
                     'color' => 'red',
-                    'title' => "Operação Não Realizada",
+                    'title' => "Falha",
                     'message' => 'O Local solicitado não foi encontrado.'
                 ];
 
@@ -148,21 +144,36 @@ class Indexes extends Component
     public function render()
     {
 
+
+
+        // dd ( );
+
+        if($this->onlyLocalId!="")
+        $hasManyProducts = Product::whereHas('index', function ($query) {
+                $query->where('local_id', 'like', $this->onlyLocalId);
+            })->get()->count();
+            else{
+                $hasManyProducts =  Product::query()->where('index_id', "!=", null)->get()->count();
+            }
+
+
         $locals = Local::all();
         $indexes = Index::query()
+            ->with('local')
             ->when($this->search != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
                 return $query->where('title', "like", "%{$this->search}%");
             })
             ->when($this->onlyLocalId != "", function ($query) { // IF USER IS SEARCHING FOR SOMETHING...
-                return $query->where('locals_id', "like", $this->onlyLocalId);
+                return $query->where('local_id', "like", $this->onlyLocalId);
             })
-            ->with('locals')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
         return view('livewire.indexes', [
             'indexes' => $indexes,
             'locals' => $locals,
+            'hasManyProducts' => $hasManyProducts,
+            'totalProducts' => Product::all()->count(),
         ]);
     }
 

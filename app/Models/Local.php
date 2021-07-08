@@ -12,7 +12,6 @@ class Local extends Model
     protected $fillable = ['status', 'title',  'address', 'number', 'district', 'cep', 'city', 'phone1', 'phone2'];
 
     public function indexes() {
-        // One to One 
         return $this->hasMany(Index::class);
     }
 }

@@ -17,8 +17,8 @@ class CreateIndicesTable extends Migration
             $table->id();
             $table->string('title', '255');
 
-            $table->unsignedBigInteger('locals_id');
-            $table->foreign('locals_id')->references('id')->on('locals')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('local_id');
+            $table->foreign('local_id')->references('id')->on('locals')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

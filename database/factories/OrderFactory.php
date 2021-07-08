@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Http\Controllers\OrderStatus;
@@ -27,7 +28,7 @@ class OrderFactory extends Factory
     {
         return [
             'status' => OrderStatus::getOrderStatus()[rand(0, count(OrderStatus::getOrderStatus()) - 1)],
-            'client_id' => rand(1,50),
+            'client_id' => rand(1,Client::all()->count()),
         ];
     }
 }

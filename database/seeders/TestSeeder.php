@@ -17,8 +17,9 @@ class TestSeeder extends Seeder
             CategorySeeder::class,
             ClientSeeder::class,
             LocalSeeder::class,
-            ProductSeeder::class,
+            IndexSeeder::class,
             OrderSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

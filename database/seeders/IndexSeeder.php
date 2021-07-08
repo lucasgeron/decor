@@ -14,6 +14,6 @@ class IndexSeeder extends Seeder
      */
     public function run()
     {
-        Index::factory(55)->create();
+        Index::factory(50)->create();
     }
 }

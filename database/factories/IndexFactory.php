@@ -23,8 +23,9 @@ class IndexFactory extends Factory
     public function definition()
     {
         return [
-           'title' => $this->faker->lexify("?????"), 
-           'locals_id' => rand(1, Local::all()->count())
+        //    'title' => $this->faker->lexify("??") . '1' . $this->faker->randomNumber(2, true), 
+           'title' => $this->faker->regexify('[A-C]{2}[1-4]{3}'),
+           'local_id' => rand(1, Local::all()->count()),
         ];
     }
 }

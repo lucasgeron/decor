@@ -60,7 +60,17 @@
             <div class="py-2">
                 <h3 class="py-2 font-bold uppercase tracking-wide"> NAME </h3>
                 <div class="">
-                    
+                    <div class="">
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>1</div>
+                        <div>9</div>
+                      </div>
                 </div>
             </div>
 

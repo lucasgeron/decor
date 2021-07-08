@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Index;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,10 +23,11 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->jobTitle,
+            'title' => $this->faker->unique->word,
             'status' => $this->faker->boolean,
             'ref' => $this->faker->lexify("??") . $this->faker->numerify('####'),
             'category_id' => rand(1,5),
+            'index_id' => rand(1, Index::all()->count()),
         ];
     }
 }
